@@ -1,0 +1,83 @@
+name: univoca
+env_file:
+  - .env.local
+  - .env
+services:
+  apis:
+    type: node:custom
+    build:
+      - npm i -g nodemon
+    command: nodemon -w packages -w apps -i apps/www --ext ts,js --exec npm --node-options --inspect=0.0.0.0:30837 --inspect start
+    ssl: true
+    overrides:
+      image: node:16
+      ports:
+        - '30837:30837'
+      environment:
+        TS_NODE_TRANSPILE_ONLY: "true"
+        DEBUG: univoca*,hydra*,hydra-box*,labyrinth*,SPARQL,-labyrinth:request:headers
+    scanner: false
+    moreHttpPorts:
+      - 30837
+  www:
+    type: node
+    command: yarn wsrun -p @univoca/app -c start --disable-host-check --host 0.0.0.0
+    ssl: true
+    scanner: false
+    port: 8080
+  store:
+    type: compose
+    volumes:
+      agdata:
+      agconfig:
+    run:
+      - agtool users add --server $AGTOOL_SERVER $SPARQL_USER $SPARQL_PASSWORD || true
+      - agtool users grant --server $AGTOOL_SERVER $SPARQL_USER root:univoca:rw || true
+      - agtool repos create $AGTOOL_SERVER/repositories/univoca || true
+    services:
+      image: franzinc/agraph
+      command: /entrypoint.sh
+      shm_size: 1g
+      environment:
+        AGTOOL_SERVER: http://admin:password@127.0.0.1:10035
+        AGRAPH_SUPER_USER: admin
+        AGRAPH_SUPER_PASSWORD: password
+        ENABLE_DATA_WRITE: "true"
+        ENABLE_UPDATE: "true"
+        ENABLE_UPLOAD: "true"
+      volumes:
+        - agdata:/agraph/data
+        - agconfig:/agraph/etc
+  trifid:
+    type: compose
+    app_mount: false
+    ssl: true
+    services:
+      image: zazuko/trifid
+      command: tini -- /start.sh
+      user: root
+      environment:
+        DEBUG: "trifid*"
+      volumes:
+        - ./apps/trifid/start.sh:/start.sh
+  ontodia:
+    type: node
+    command: yarn wsrun -p @univoca/explorer -c start --disable-host-check --host 0.0.0.0
+    scanner: false
+
+tooling:
+  agtool:
+    service: store
+    cmd: agtool
+
+proxy:
+  store:
+    - db.univoca.lndo.site:10035
+  apis:
+    - univoca.lndo.site:8888
+  trifid:
+    - trifid.univoca.lndo.site:8080
+  ontodia:
+    - explore.univoca.lndo.site:8080
+  www:
+    - univoca.lndo.site:8080/app

@@ -1,0 +1,14 @@
+_commit: 2.0.1
+_src_path: gh:hypermedia-app/creta-project-template.git
+apis:
+- api
+app_name: univoca
+author: Zazuko GmbH
+debugger_port: '30837'
+email: no-reply@zazuko.com
+node_version: '16'
+project_name: Univoca
+repository: https://github.com/zazuko/univoca
+ui_path: app
+vocabs: []
+
