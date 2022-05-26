@@ -1,0 +1,28 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix schema: <http://schema.org/>
+prefix meta: <https://cube.link/meta/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a schema:DefinedTermSet, hydra:Resource, meta:SharedDimension, univoca:SharedDimension ;
+  dcterms:identifier "iea-rd-and-d-budget-questionnaire" ;
+  schema:validFrom "2021-12-01T00:00:00Z"^^xsd:dateTime ;
+  schema:name "International Energy Agency RD&D Budget Questionnaire"@en ;
+  sh:property
+    [
+      qudt:scaleType qudt:NominalScale ;
+    ] ;
+  schema:additionalProperty
+    [
+      rdfs:label "Subcategory of" ;
+      rdf:predicate schema:isPartOf ;
+      sh:class <> ;
+      hydra:required false ;
+      univoca:dynamicPropertyType "Shared Term" ;
+    ] .

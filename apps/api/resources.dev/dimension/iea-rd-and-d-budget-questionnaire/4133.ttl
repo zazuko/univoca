@@ -1,0 +1,10 @@
+@prefix schema: <http://schema.org/> .
+@prefix hydra: <http://www.w3.org/ns/hydra/core#> .
+@prefix univoca: <https://cube.link/univoca/> .
+
+<> a hydra:Resource, schema:DefinedTerm, univoca:SharedDimensionTerm ;
+	schema:name "4133 Other fuel cycle"@en ;
+	schema:identifier "4133" ;
+	schema:inDefinedTermSet <../iea-rd-and-d-budget-questionnaire> ;
+	schema:isPartOf <413> .
+
