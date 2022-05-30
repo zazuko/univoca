@@ -1,6 +1,19 @@
 prefix hydra: <http://www.w3.org/ns/hydra/core#>
+prefix code: <https://code.described.at/>
+prefix knossos: <https://hypermedia.app/knossos#>
+prefix univoca: <https://cube.link/univoca/>
 
 <>
   a hydra:ApiDocumentation ;
   hydra:entrypoint <../> ;
+.
+
+univoca:TermSetCollection
+  a hydra:Class ;
+  hydra:apiDocumentation <> ;
+  knossos:preprocessResponse
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
+    ] ;
 .

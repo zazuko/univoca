@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a univoca:TermSetCollection ;
+  hydra:memberAssertion
+    [
+      hydra:property rdf:type ;
+      hydra:object schema:DefinedTermSet ;
+    ] ;
+.
