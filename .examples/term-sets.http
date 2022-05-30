@@ -1,0 +1,3 @@
+### Get dimensions term sets
+GET {{base}}/term-sets
+Accept: text/turtle

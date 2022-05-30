@@ -1,0 +1,12 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a schema:DefinedTerm, univoca:DimensionTerm ;
+  schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
+  schema:validThrough "2022-01-20T23:59:59Z"^^xsd:dateTime ;
+  schema:identifier "sparql" ;
+  schema:name "SPARQL"@en ;
+  schema:inDefinedTermSet </dimension/technologies> ;
+.

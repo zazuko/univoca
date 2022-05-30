@@ -6,6 +6,6 @@ prefix univoca: <https://cube.link/univoca/>
   a acl:Authorization ;
   acl:agentClass foaf:Agent ;
   acl:mode acl:Read ;
-  acl:accessTo </term-sets>, </terms> ;
-  acl:accessToClass univoca:SharedDimension ;
+  acl:accessTo </term-sets>, </terms>, </hierarchies> ;
+  acl:accessToClass univoca:SharedDimension, univoca:Hierarchy ;
 .

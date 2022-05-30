@@ -1,0 +1,52 @@
+prefix meta: <https://cube.link/meta/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix sh: <http://www.w3.org/ns/shacl#>
+prefix schema: <http://schema.org/>
+prefix sd: <http://www.w3.org/ns/sparql-service-description#>
+prefix univoca: <https://cube.link/univoca/>
+
+<> a
+    univoca:Hierarchy,
+    meta:Hierarchy ;
+  schema:name "IEA Hierarchy" ;
+  univoca:dimension </dimension/iea-rd-and-d-budget-questionnaire> ;
+  meta:hierarchyRoot
+    </dimension/iea-rd-and-d-budget-questionnaire/1>,
+    </dimension/iea-rd-and-d-budget-questionnaire/2>,
+    </dimension/iea-rd-and-d-budget-questionnaire/3>,
+    </dimension/iea-rd-and-d-budget-questionnaire/4>,
+    </dimension/iea-rd-and-d-budget-questionnaire/5>,
+    </dimension/iea-rd-and-d-budget-questionnaire/6>,
+    </dimension/iea-rd-and-d-budget-questionnaire/7>,
+    </dimension/iea-rd-and-d-budget-questionnaire/8> ;
+  meta:nextInHierarchy
+    [
+      schema:name "Level 2" ;
+      meta:nextInHierarchy
+        [
+          schema:name "Level 3" ;
+          meta:nextInHierarchy
+            [
+              schema:name "Level 4" ;
+              sh:path
+                [
+                  sh:inversePath schema:isPartOf ;
+                ] ;
+            ] ;
+          sh:path
+            [
+              sh:inversePath schema:isPartOf ;
+            ] ;
+        ] ;
+      sh:path
+        [
+          sh:inversePath schema:isPartOf ;
+        ] ;
+    ] ;
+  dcterms:source
+    [
+      sd:endpoint <https://trifid.univoca.lndo.site/query> ;
+    ] .

@@ -1,0 +1,6 @@
+### All hierarchies
+GET {{base}}/hierarchies
+
+
+### Hierarchy search
+GET {{base}}/hierarchies?q=iea

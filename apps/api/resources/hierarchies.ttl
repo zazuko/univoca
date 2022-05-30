@@ -1,0 +1,39 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://cube.link/univoca/>
+prefix query: <https://hypermedia.app/query#>
+prefix code: <https://code.described.at/>
+
+<>
+  a hydra:Collection ;
+  hydra:memberAssertion
+  [
+    hydra:property rdf:type ;
+    hydra:object univoca:Hierarchy ;
+  ] ;
+  hydra:search
+    [
+      hydra:template "{?q,pageSize,page}" ;
+      hydra:mapping
+        [
+          a hydra:IriTemplateMapping ;
+          hydra:property hydra:freetextQuery ;
+          hydra:variable "q" ;
+          query:filter
+            [
+              a code:EcmaScriptModule ;
+              code:link <file:apps/api/lib/query/fullTextSearch.js#default> ;
+            ] ;
+        ],
+        [
+          a hydra:IriTemplateMapping ;
+          hydra:property hydra:limit ;
+          hydra:variable "pageSize" ;
+        ],
+        [
+          a hydra:IriTemplateMapping ;
+          hydra:property hydra:pageIndex ;
+          hydra:variable "page" ;
+        ] ;
+    ] ;
+.

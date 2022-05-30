@@ -1,0 +1,7 @@
+### Get dimensions terms
+GET {{base}}/terms?dimension={{base}}/dimension/technologies
+Accept: text/turtle
+
+### Only valid terms
+GET {{base}}/terms?dimension={{base}}/dimension/technologies&valid="true"^^http://www.w3.org/2001/XMLSchema#boolean
+Accept: text/turtle

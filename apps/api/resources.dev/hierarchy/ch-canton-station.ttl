@@ -1,0 +1,19 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX schema: <http://schema.org/>
+PREFIX meta: <https://cube.link/meta/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a meta:Hierarchy, univoca:Hierarchy ;
+  schema:name "CH - Canton - Station" ;
+  univoca:dimension <http://example.com/dimension/countries> ;
+  meta:hierarchyRoot <http://example.com/dimension/countries/Switzerland> ;
+  meta:nextInHierarchy
+    [
+      schema:name "Canton" ;
+      sh:path
+        [
+          sh:inversePath schema:containedInPlace ;
+        ] ;
+    ] ;
+.

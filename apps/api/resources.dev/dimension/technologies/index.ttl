@@ -1,0 +1,45 @@
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix univoca: <https://cube.link/univoca/>
+PREFIX meta: <https://cube.link/meta/>
+prefix language: <http://lexvo.org/id/iso639-1/>
+
+<>
+  a schema:DefinedTermSet, univoca:Dimension, meta:SharedDimension ;
+  schema:name "Technologies"@en ;
+  schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
+  schema:additionalProperty
+    _:Order,
+    _:Color,
+    _:HelpText ;
+.
+
+_:HelpText
+  univoca:dynamicPropertyType "Lang String" ;
+  hydra:required false ;
+  rdfs:label "Help text" ;
+  rdf:predicate rdfs:comment ;
+  sh:languageIn language:de, language:fr, language:en ;
+.
+
+_:Order
+  hydra:required false ;
+  sh:datatype xsd:integer ;
+  rdf:predicate qb:order ;
+  rdfs:label "Order" ;
+  univoca::dynamicPropertyType "Literal" ;
+.
+
+_:Color
+  hydra:required true ;
+  sh:class <http://example.com/dimension/colors> ;
+  rdf:predicate schema:color ;
+  schema:multipleValues true ;
+  rdfs:label "Color" ;
+  univoca:dynamicPropertyType "Shared Term" ;
+.

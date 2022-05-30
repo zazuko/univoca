@@ -2,13 +2,15 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix univoca: <https://cube.link/univoca/>
+prefix query: <https://hypermedia.app/query#>
+prefix code: <https://code.described.at/>
 
 <>
   a hydra:Collection ;
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
-      hydra:object univoca:SharedDimensionTerm ;
+      hydra:object univoca:DimensionTerm ;
     ] ;
   hydra:search
   [
@@ -20,16 +22,32 @@ prefix univoca: <https://cube.link/univoca/>
         hydra:property schema:inDefinedTermSet ;
         hydra:required true ;
         hydra:variable "dimension" ;
+        # TODO https://github.com/hypermedia-app/creta/issues/386
+        query:filter
+          [
+            a code:EcmaScriptModule ;
+            code:link <file:apps/api/lib/query/terms.js#dimensionFilter> ;
+          ] ;
       ],
       [
         a hydra:IriTemplateMapping ;
         hydra:property hydra:freetextQuery ;
         hydra:variable "q" ;
+        query:filter
+          [
+            a code:EcmaScriptModule ;
+            code:link <file:apps/api/lib/query/fullTextSearch.js#default> ;
+          ] ;
       ],
       [
         a hydra:IriTemplateMapping ;
         hydra:property univoca:onlyValidTerms ;
         hydra:variable "valid" ;
+        query:filter
+          [
+            a code:EcmaScriptModule ;
+            code:link <file:apps/api/lib/query/terms.js#onlyValidTerms> ;
+          ] ;
       ],
       [
         a hydra:IriTemplateMapping ;

@@ -10,7 +10,9 @@
   "dependencies": {
     "@hydrofoil/knossos": "^0.6.1",
     "@rdfjs/namespace": "^2",
-    "@tpluscode/rdf-ns-builders": "^1.1.0"
+    "@tpluscode/rdf-ns-builders": "^1.1.0",
+    "@tpluscode/sparql-builder": "^0.3.21",
+    "rdf-literal": "^1.3.0"
   },
   "devDependencies": {
     "@hydrofoil/talos": "^0.4.4"
