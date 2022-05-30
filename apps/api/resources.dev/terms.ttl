@@ -1,0 +1,45 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a hydra:Collection ;
+  hydra:memberAssertion
+    [
+      hydra:property rdf:type ;
+      hydra:object univoca:SharedDimensionTerm ;
+    ] ;
+  hydra:search
+  [
+    hydra:template "{?dimension,q,valid,pageSize,page}" ;
+    hydra:variableRepresentation hydra:ExplicitRepresentation ;
+    hydra:mapping
+      [
+        a hydra:IriTemplateMapping ;
+        hydra:property schema:inDefinedTermSet ;
+        hydra:required true ;
+        hydra:variable "dimension" ;
+      ],
+      [
+        a hydra:IriTemplateMapping ;
+        hydra:property hydra:freetextQuery ;
+        hydra:variable "q" ;
+      ],
+      [
+        a hydra:IriTemplateMapping ;
+        hydra:property univoca:onlyValidTerms ;
+        hydra:variable "valid" ;
+      ],
+      [
+        a hydra:IriTemplateMapping ;
+        hydra:property hydra:limit ;
+        hydra:variable "pageSize" ;
+      ],
+      [
+        a hydra:IriTemplateMapping ;
+        hydra:property hydra:pageIndex ;
+        hydra:variable "page" ;
+      ] ;
+  ] ;
+.

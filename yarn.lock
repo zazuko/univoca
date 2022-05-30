@@ -1425,7 +1425,7 @@
   resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.3.2.tgz#43e470537b6ec2c23510c07812616d5aa27a17cd"
   integrity sha512-A2e18XzPMrIh35nhIdE4uoqRzoIpEU5vZYuQN4S3Ee1zkGdYC27DP12pewbw/RLgPHzaE4kx/YqxMzebOpm0dA==
 
-"@mapbox/link-hijacker@github:data-mazes/link-hijacker#composed-path":
+"@mapbox/link-hijacker@data-mazes/link-hijacker#composed-path":
   version "1.1.0"
   resolved "https://codeload.github.com/data-mazes/link-hijacker/tar.gz/31f2c661694c2f635b2bf9d6ba40a3b5df4f3a31"
 
@@ -1713,7 +1713,7 @@
   dependencies:
     "@rdfjs/types" ">=1.0.1"
 
-"@rdfjs/data-model@^2":
+"@rdfjs/data-model@^2", "@rdfjs/data-model@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@rdfjs/data-model/-/data-model-2.0.1.tgz#410aeaea65de9bac605b63172baa64384b65ca98"
   integrity sha512-oRDYpy7/fJ9NNjS+M7m+dbnhi4lOWYGbBiM/A+u9bBExnN6ifXUF5mUsFxwZaQulmwTDaMhKERdV6iKTBUMgtw==
@@ -1758,6 +1758,13 @@
   integrity sha512-utO5rtaOKxk8B90qzaQ0N+J5WrCI28DtfAY/zExCmXE7cOfC5uRI/oMKbLaVEPj2P7uArekt/T4IPATtj7Tjug==
   dependencies:
     "@rdfjs/data-model" "^1.1.0"
+
+"@rdfjs/namespace@^2":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@rdfjs/namespace/-/namespace-2.0.0.tgz#e6ca090f253505d95544c6482400c89e55fc9e1c"
+  integrity sha512-cBBvNrlSOah4z7u2vS74Lxng/ivELy6tNPjx+G/Ag14up8z5xmX8njn+U/mJ+nlcXO7nDGK4rgaAq7jtl9S3CQ==
+  dependencies:
+    "@rdfjs/data-model" "^2.0.0"
 
 "@rdfjs/parser-jsonld@^1.2.1", "@rdfjs/parser-jsonld@^1.2.2":
   version "1.3.1"

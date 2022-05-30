@@ -2,12 +2,15 @@
   "name": "@univoca/api",
   "version": "0.0.0",
   "private": "true",
+  "type": "module",
   "scripts": {
-    "bootstrap": "talos put --api $api_BASE --endpoint $SPARQL_ENDPOINT --user $SPARQL_USER --password $SPARQL_PASSWORD",
+    "bootstrap": "talos put --api $API_BASE --endpoint $SPARQL_ENDPOINT --user $SPARQL_USER --password $SPARQL_PASSWORD",
     "build": "tsc"
   },
   "dependencies": {
-    "@hydrofoil/knossos": "^0.6.1"
+    "@hydrofoil/knossos": "^0.6.1",
+    "@rdfjs/namespace": "^2",
+    "@tpluscode/rdf-ns-builders": "^1.1.0"
   },
   "devDependencies": {
     "@hydrofoil/talos": "^0.4.4"
