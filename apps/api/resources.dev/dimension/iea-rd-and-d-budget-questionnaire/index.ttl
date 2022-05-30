@@ -10,7 +10,7 @@ prefix meta: <https://cube.link/meta/>
 prefix univoca: <https://cube.link/univoca/>
 
 <>
-  a schema:DefinedTermSet, hydra:Resource, meta:SharedDimension, univoca:Dimension ;
+  a schema:DefinedTermSet, hydra:Resource, meta:SharedDimension, univoca:SharedDimension ;
   dcterms:identifier "iea-rd-and-d-budget-questionnaire" ;
   schema:validFrom "2021-12-01T00:00:00Z"^^xsd:dateTime ;
   schema:name "International Energy Agency RD&D Budget Questionnaire"@en ;

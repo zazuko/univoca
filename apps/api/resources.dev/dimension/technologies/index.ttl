@@ -1,3 +1,4 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
@@ -8,15 +9,32 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix univoca: <https://cube.link/univoca/>
 PREFIX meta: <https://cube.link/meta/>
 prefix language: <http://lexvo.org/id/iso639-1/>
+prefix knossos: <https://hypermedia.app/knossos#>
 
 <>
-  a schema:DefinedTermSet, univoca:Dimension, meta:SharedDimension ;
+  a schema:DefinedTermSet, univoca:SharedDimension, meta:SharedDimension ;
   schema:name "Technologies"@en ;
   schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
   schema:additionalProperty
     _:Order,
     _:Color,
     _:HelpText ;
+  # TODO: initialize when creating dimension
+  hydra:memberAssertion
+    [
+      hydra:property schema:inDefinedTermSet ;
+      hydra:object <> ;
+    ] ;
+  knossos:memberTemplate
+    [
+      hydra:template "/dimension/technologies/{identifier}" ;
+      hydra:mapping
+        [
+          hydra:variable "identifier" ;
+          hydra:property dcterms:identifier ;
+          hydra:required true ;
+        ] ;
+    ] ;
 .
 
 _:HelpText

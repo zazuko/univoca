@@ -1,3 +1,6 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix univoca: <https://cube.link/univoca/>
 prefix code: <https://code.described.at/>
@@ -10,5 +13,35 @@ univoca:SharedDimension
     [
       a code:EcmaScriptModule ;
       code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
+    ] ;
+  hydra:memberAssertion
+    [
+      hydra:property rdf:type ;
+      hydra:object univoca:SharedDimensionTerm ;
+    ],
+    [
+      hydra:property rdf:type ;
+      hydra:object schema:DefinedTerm ;
+    ] ;
+  hydra:supportedOperation
+    [
+      # Force plain resource GET rather than hydra:Collection
+      hydra:method "GET" ;
+      code:implementedBy
+        [
+          a code:EcmaScript ;
+          code:link <node:@hydrofoil/labyrinth/resource#get> ;
+        ] ;
+    ] ,
+    [
+      a hydra:SupportedOperation, schema:CreateAction ;
+      hydra:method "POST" ;
+      hydra:title "Add term" ;
+      hydra:expects </api/univoca/SharedDimensionTerm#New> ;
+      code:implementedBy
+        [
+          a code:EcmaScript ;
+          code:link <node:@hydrofoil/knossos/collection#CreateMember> ;
+        ] ;
     ] ;
 .

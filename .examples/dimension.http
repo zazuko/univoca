@@ -1,3 +1,9 @@
 ### Get a dimension
 GET {{base}}/dimension/iea-rd-and-d-budget-questionnaire
 Accept: application/ld+json
+
+### Add a term
+POST {{base}}/dimension/technologies
+Content-Type: text/turtle
+
+< ./body/dimensions/technologies/node-js.ttl

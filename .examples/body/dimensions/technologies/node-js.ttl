@@ -1,0 +1,7 @@
+prefix schema: <http://schema.org/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix dcterms: <http://purl.org/dc/terms/>
+
+<> schema:name "node.js"@en ;
+  dcterms:identifier "node-js" ;
+  schema:validThrough "2022-01-01T00:00:00Z"^^xsd:dateTime .

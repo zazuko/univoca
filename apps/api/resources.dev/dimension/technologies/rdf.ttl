@@ -3,7 +3,7 @@ PREFIX schema: <http://schema.org/>
 prefix univoca: <https://cube.link/univoca/>
 
 <>
-  a schema:DefinedTerm, univoca:DimensionTerm ;
+  a schema:DefinedTerm, univoca:SharedDimensionTerm ;
   schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
   schema:identifier "rdf" ;
   schema:name "RDF"@en ;

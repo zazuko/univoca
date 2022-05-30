@@ -10,7 +10,7 @@ prefix code: <https://code.described.at/>
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
-      hydra:object univoca:DimensionTerm ;
+      hydra:object univoca:SharedDimensionTerm ;
     ] ;
   hydra:search
   [
