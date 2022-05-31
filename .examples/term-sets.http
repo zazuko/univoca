@@ -1,3 +1,16 @@
 ### Get dimensions term sets
 GET {{base}}/term-sets
 Accept: text/turtle
+
+### Create a dimension
+POST {{base}}/term-sets
+Content-Type: text/turtle
+
+< ./body/dimensions/color.ttl
+
+### Create - missing discriminator
+POST {{base}}/term-sets
+Content-Type: text/turtle
+
+< ./body/dimensions/missing-discriminator.ttl
+

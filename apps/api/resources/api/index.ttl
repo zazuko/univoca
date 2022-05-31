@@ -1,7 +1,10 @@
+PREFIX schema: <http://schema.org/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix hydra: <http://www.w3.org/ns/hydra/core#>
 prefix code: <https://code.described.at/>
 prefix knossos: <https://hypermedia.app/knossos#>
 prefix univoca: <https://cube.link/univoca/>
+prefix hex: <https://w3id.org/hydra/extension#>
 
 <>
   a hydra:ApiDocumentation ;
@@ -15,5 +18,33 @@ univoca:TermSetCollection
     [
       a code:EcmaScriptModule ;
       code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
+    ] ;
+  knossos:preprocessPayload
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#prepareCreated> ;
+    ] ;
+  knossos:memberTemplate
+    [
+      hydra:template "/dimension/{identifier}" ;
+      hydra:mapping
+        [
+          hydra:variable "identifier" ;
+          hydra:property dcterms:identifier ;
+          hydra:required true ;
+        ] ;
+    ] ;
+  hydra:supportedOperation
+    [
+      a schema:CreateAction ;
+      hydra:method "POST" ;
+      hydra:title "Create shared dimension" ;
+      hydra:expects </api/univoca/SharedDimension#New> ;
+      code:implementedBy
+        [
+          a code:EcmaScriptModule ;
+          code:link <file:apps/api/handlers/term-sets.js#post> ;
+        ] ;
+      hex:multiPartPath </api#export> ;
     ] ;
 .

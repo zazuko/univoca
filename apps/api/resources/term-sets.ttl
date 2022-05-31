@@ -2,6 +2,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix univoca: <https://cube.link/univoca/>
+PREFIX meta: <https://cube.link/meta/>
 
 <>
   a univoca:TermSetCollection ;
@@ -9,5 +10,13 @@ prefix univoca: <https://cube.link/univoca/>
     [
       hydra:property rdf:type ;
       hydra:object schema:DefinedTermSet ;
+    ],
+    [
+      hydra:property rdf:type ;
+      hydra:object univoca:SharedDimension ;
+    ],
+    [
+      hydra:property rdf:type ;
+      hydra:object meta:SharedDimension ;
     ] ;
 .

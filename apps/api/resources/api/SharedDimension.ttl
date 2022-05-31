@@ -14,6 +14,11 @@ univoca:SharedDimension
       a code:EcmaScriptModule ;
       code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
     ] ;
+  knossos:beforeSave
+  [
+    a code:EcmaScriptModule ;
+    code:link <file:apps/api/lib/SharedDimension.js#removeGeneratedProperties> ;
+  ] ;
   hydra:memberAssertion
     [
       hydra:property rdf:type ;

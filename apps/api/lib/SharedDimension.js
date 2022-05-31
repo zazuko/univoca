@@ -8,3 +8,16 @@ export function injectTermsLink(req, pointer) {
     termSet.addOut(univoca.terms, termSet.namedNode(terms.toString()))
   })
 }
+
+export function prepareCreated(req, pointer) {
+  pointer.addOut(rdf.type, univoca('SharedDimension.created'))
+}
+
+export function removeGeneratedProperties({ after }) {
+  after.deleteOut([
+    univoca.createAs,
+    univoca.terms,
+    univoca.export,
+  ])
+  after.deleteOut(rdf.type, univoca('SharedDimension.created'))
+}

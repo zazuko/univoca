@@ -1,0 +1,11 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX schema: <http://schema.org/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  univoca:createAs "New dimension" ;
+  dcterms:identifier "colors" ;
+  schema:name "Colours"@en ;
+  sh:property [ ] ;
+.
