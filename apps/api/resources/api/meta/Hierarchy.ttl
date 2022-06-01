@@ -30,7 +30,7 @@ prefix univoca: <https://cube.link/univoca/>
     [
 
       sh:name 'Root dimension' ;
-      sh:path univoca:dimension ;
+      sh:path meta:dimension ;
       sh:minCount 1 ;
       sh:maxCount 1 ;
       sh:nodeKind sh:IRI ;
@@ -52,7 +52,7 @@ prefix univoca: <https://cube.link/univoca/>
           hydra:mapping
             [
               hydra:variable "dimension" ;
-              hydra:property univoca:dimension ;
+              hydra:property meta:dimension ;
               hydra:required true ;
             ],
             [

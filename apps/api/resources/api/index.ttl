@@ -72,7 +72,7 @@ univoca:TermSetCollection
       a schema:CreateAction ;
       hydra:method "POST" ;
       hydra:title "Create shared dimension" ;
-      hydra:expects </api/univoca/SharedDimension#New> ;
+      hydra:expects </api/univoca/NewOrImportedDimension> ;
       code:implementedBy
         [
           a code:EcmaScriptModule ;

@@ -1,11 +1,17 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX schema: <http://schema.org/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix univoca: <https://cube.link/univoca/>
 
 <>
-  univoca:createAs "New dimension" ;
+  rdf:type univoca:NewDimension ;
+  schema:name "Color dimension" ;
   dcterms:identifier "colors" ;
+  univoca:dimension <https://foo.bar/dimension/colors> ;
+.
+
+<https://foo.bar/dimension/colors>
   schema:name "Colours"@en ;
   sh:property [ ] ;
 .

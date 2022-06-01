@@ -12,13 +12,9 @@ prefix language: <http://lexvo.org/id/iso639-1/>
 prefix knossos: <https://hypermedia.app/knossos#>
 
 <>
-  a schema:DefinedTermSet, univoca:SharedDimension, meta:SharedDimension ;
-  schema:name "Technologies"@en ;
-  schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
-  schema:additionalProperty
-    _:Order,
-    _:Color,
-    _:HelpText ;
+  a univoca:SharedDimension ;
+  schema:name "Technologies" ;
+  univoca:dimension <https://example.com/dimension/technologies> ;
   # TODO: initialize when creating dimension
   hydra:memberAssertion
     [
@@ -35,6 +31,16 @@ prefix knossos: <https://hypermedia.app/knossos#>
           hydra:required true ;
         ] ;
     ] ;
+.
+
+<https://example.com/dimension/technologies>
+  a schema:DefinedTermSet, meta:SharedDimension ;
+  schema:name "Technologies"@en ;
+  schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
+  schema:additionalProperty
+    _:Order,
+    _:Color,
+    _:HelpText ;
 .
 
 _:HelpText

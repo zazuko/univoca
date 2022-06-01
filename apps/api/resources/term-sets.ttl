@@ -9,14 +9,6 @@ PREFIX meta: <https://cube.link/meta/>
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
-      hydra:object schema:DefinedTermSet ;
-    ],
-    [
-      hydra:property rdf:type ;
       hydra:object univoca:SharedDimension ;
-    ],
-    [
-      hydra:property rdf:type ;
-      hydra:object meta:SharedDimension ;
     ] ;
 .

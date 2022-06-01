@@ -1,0 +1,140 @@
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX meta: <https://cube.link/meta/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dash: <http://datashapes.org/dash#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+prefix sh1: <https://forms.hypermedia.app/shaperone#>
+
+<>
+  sh:targetClass meta:SharedDimension ;
+  sh:property
+    [
+      sh:name "Name" ;
+      sh:path schema:name ;
+      sh:uniqueLang true ;
+      sh:minCount 1 ;
+      sh:maxCount 4 ;
+      sh:languageIn ( "de" "fr" "it" "rm" "en" ) ;
+      sh:order 10 ;
+      sh:group _:defaultGroup ;
+    ],
+    [
+      sh:name 'Valid from' ;
+      sh:path schema:validFrom ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:dateTime ;
+    # TODO defaultValue: $rdf.literal(new Date().toISOString(), xsd.dateTime),
+      sh:order 20 ;
+      sh:group _:defaultGroup ;
+    ],
+    [
+      sh:name 'Valid to' ;
+      sh:path schema:validThrough ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:dateTime ;
+      sh:order 25 ;
+      sh:group _:defaultGroup ;
+    ],
+    [
+      sh:name 'Default metadata' ;
+      sh:description "Metadata copied to cube's metadata when this dimension is selected" ;
+      sh:path sh:property ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:BlankNodeOrIRI ;
+      sh:defaultValue [] ;
+      sh:order 30 ;
+      sh:group _:defaultGroup ;
+      sh:node _:metadataShape ;
+    ],
+    [
+      sh:name 'Term properties' ;
+      sh:description 'Additional properties for Shared Terms' ;
+      sh:path schema:additionalProperty ;
+      sh:order 40 ;
+      sh:nodeKind sh:BlankNodeOrIRI ;
+      sh:group _:propertyGroup ;
+      sh:node _:termProperties ;
+    ] ;
+.
+
+_:defaultGroup rdfs:label "Dimension" .
+_:propertyGroup rdfs:label "Term properties" .
+
+_:metadataShape
+  sh:property
+    [
+      sh:name 'Name' ;
+      sh:path schema:name ;
+      sh:uniqueLang true ;
+      sh:maxCount 4 ;
+      sh:languageIn ( "de" "fr" "it" "rm" "en" ) ; # TODO remove duplication
+      sh:order 10 ;
+    ],
+    [
+      sh:name 'Scale type' ;
+      sh:path qudt:scaleType ;
+      sh:in ( qudt:NominalScale qudt:OrdinalScale ) ; # TODO: to collection resource
+      sh:maxCount 1 ;
+      sh:defaultValue qudt:NominalScale ;
+      sh:order 20 ;
+    ],
+    [
+      sh:name "Data kind" ;
+      sh:path meta:dataKind ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:BlankNodeOrIRI ;
+      sh:order 30 ;
+      sh:node
+        [
+          sh:property
+            [
+              sh:name "Choose type" ;
+              sh:path rdf:type ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:nodeKind sh:IRI ;
+              dash:editor dash:EnumSelectEditor ;
+              sh:in ( schema:GeoCoordinates schema:GeoShape time:GeneralDateTimeDescription ) ;
+              sh:order 10 ;
+            ],
+            [
+              sh:name "Time precision" ;
+              sh:path time:unitType ;
+              sh:maxCount 1 ;
+              sh:order 20 ;
+              sh:nodeKind sh:IRI ;
+              sh1:if
+                [
+                  sh:path rdf:type ;
+                  sh:hasValue time:GeneralDateTimeDescription ;
+                ] ;
+              sh:in
+                (
+                # TODO: to collection resource
+                  time:unitYear
+                  time:unitMonth
+                  time:unitWeek
+                  time:unitDay
+                  time:unitHour
+                  time:unitMinute
+                  time:unitSecond
+                )
+            ] ;
+        ] ;
+    ] ;
+.
+
+qudt:NominalScale rdfs:label "Nominal"@en .
+qudt:OrdinalScale rdfs:label "Ordinal"@en .
+time:unit rdfs:label "Year"@en .
+time:unit rdfs:label "Month"@en .
+time:unit rdfs:label "Week"@en .
+time:unit rdfs:label "Day"@en .
+time:unit rdfs:label "Hour"@en .
+time:unit rdfs:label "Minute"@en .
+time:unit rdfs:label "Second"@en .

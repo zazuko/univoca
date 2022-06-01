@@ -1,10 +1,4 @@
-PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX dash: <http://datashapes.org/dash#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX schema: <http://schema.org/>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 prefix univoca: <https://cube.link/univoca/>
 
@@ -12,74 +6,22 @@ prefix univoca: <https://cube.link/univoca/>
   a sh:NodeShape ;
   sh:targetClass univoca:SharedDimensionTerm ;
   sh:property
-  [
-    sh:path rdf:type ;
-    sh:hasValue univoca:SharedDimensionTerm, schema:DefinedTerm ;
-    sh:group _:defaultGroup ;
-    dash:hidden true ;
-  ],
-  [
-    sh:path schema:inDefinedTermSet ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    dash:readOnly true ;
-    dash:hidden true ;
-    sh:group _:defaultGroup ;
-  ],
-  [
-    sh:name "name" ;
-    sh:path schema:name ;
-    sh:languageIn ("de" "fr" "it" "rm" "en") ;
-    sh:uniqueLang true ;
-    sh:order 10 ;
-    sh:minCount 1 ;
-    sh:group _:defaultGroup ;
-  ],
-  [
-    sh:name "Identifiers" ;
-    sh:path schema:identifier ;
-    sh:datatype xsd:string ;
-    sh:order 20 ;
-    sh:group _:defaultGroup ;
-  ],
-  [
-    sh:name "Valid from" ;
-    sh:description "Leave empty to inherit date from the dimension" ;
-    sh:path schema:validFrom ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1 ;
-    sh:order 30 ;
-    sh:group _:defaultGroup ;
-  ],
-  [
-    sh:name "Valid through" ;
-    sh:description "Use this to deprecate a term" ;
-    sh:path schema:validThrough ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1 ;
-    sh:order 40 ;
-    sh:group _:defaultGroup ;
-  ];
-.
-
-<#New>
-  a sh:NodeShape ;
-  sh:targetClass univoca:SharedDimensionTerm ;
-  hydra:apiDocumentation </api> ;
-  sh:and (<>) ;
-  sh:property
-  [
-    sh:name "Identifier" ;
-    sh:description "A lowercase, alphanumeric value which identifies a shared dimension term" ;
-    sh:path dcterms:identifier ;
-    sh:order 0 ;
-    sh:group _:defaultGroup ;
-    sh:pattern "^[a-z0-9-]+$" ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-.
-
-_:defaultGroup
-  rdfs:label "Term" ;
+    [
+      sh:name "Identifier" ;
+      sh:description "A lowercase, alphanumeric value which identifies a shared dimension term" ;
+      sh:path dcterms:identifier ;
+      sh:order 0 ;
+      sh:group _:defaultGroup ;
+      sh:pattern "^[a-z0-9-]+$" ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+    ],
+    [
+      sh:path univoca:dimensionTerm ;
+      sh:name "Term" ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:BlankNodeOrIRI ;
+      sh:node </api/meta/SharedDimensionTerm> ;
+    ] ;
 .
