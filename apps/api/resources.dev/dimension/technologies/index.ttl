@@ -38,32 +38,27 @@ prefix knossos: <https://hypermedia.app/knossos#>
   schema:name "Technologies"@en ;
   schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
   schema:additionalProperty
-    _:Order,
-    _:Color,
-    _:HelpText ;
-.
+    [
+      univoca:dynamicPropertyType "Lang String" ;
+      hydra:required false ;
+      rdfs:label "Help text" ;
+      rdf:predicate rdfs:comment ;
+      sh:languageIn language:de, language:fr, language:en ;
+    ],
+    [
 
-_:HelpText
-  univoca:dynamicPropertyType "Lang String" ;
-  hydra:required false ;
-  rdfs:label "Help text" ;
-  rdf:predicate rdfs:comment ;
-  sh:languageIn language:de, language:fr, language:en ;
-.
-
-_:Order
-  hydra:required false ;
-  sh:datatype xsd:integer ;
-  rdf:predicate qb:order ;
-  rdfs:label "Order" ;
-  univoca::dynamicPropertyType "Literal" ;
-.
-
-_:Color
-  hydra:required true ;
-  sh:class <http://example.com/dimension/colors> ;
-  rdf:predicate schema:color ;
-  schema:multipleValues true ;
-  rdfs:label "Color" ;
-  univoca:dynamicPropertyType "Shared Term" ;
+      hydra:required false ;
+      sh:datatype xsd:integer ;
+      rdf:predicate qb:order ;
+      rdfs:label "Order" ;
+      univoca::dynamicPropertyType "Literal" ;
+    ],
+    [
+      hydra:required true ;
+      sh:class <http://example.com/dimension/colors> ;
+      rdf:predicate schema:color ;
+      schema:multipleValues true ;
+      rdfs:label "Color" ;
+      univoca:dynamicPropertyType "Shared Term" ;
+    ]
 .
