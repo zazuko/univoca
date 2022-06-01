@@ -11,6 +11,39 @@ prefix hex: <https://w3id.org/hydra/extension#>
   hydra:entrypoint <../> ;
 .
 
+univoca:HierarchyCollection
+  a hydra:Class ;
+  hydra:apiDocumentation <> ;
+  knossos:memberTemplate
+    [
+      hydra:template "/hierarchy/{name}" ;
+      hydra:mapping
+        [
+          hydra:variable "name" ;
+          hydra:property schema:name ;
+          hydra:required true ;
+          knossos:transformVariable
+            [
+              a code:EcmaScriptModule ;
+              code:link <file:apps/api/lib/Hierarchy.js#slugifyName> ;
+            ] ;
+        ] ;
+    ] ;
+  hydra:supportedOperation
+    [
+      a schema:CreateAction ;
+      hydra:method "POST" ;
+      hydra:title "Create shared dimension" ;
+      hydra:expects </api/univoca/Hierarchy> ;
+      code:implementedBy
+        [
+          a code:EcmaScriptModule ;
+          code:link <node:@hydrofoil/knossos/collection.js#CreateMember> ;
+        ] ;
+    ] ;
+.
+
+
 univoca:TermSetCollection
   a hydra:Class ;
   hydra:apiDocumentation <> ;

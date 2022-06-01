@@ -1,0 +1,141 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+PREFIX dash: <http://datashapes.org/dash#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX meta: <https://cube.link/meta/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a sh:NodeShape ;
+  sh:targetClass meta:Hierarchy ;
+  sh:property
+    [
+      sh:path rdf:type ;
+      sh:hasValue meta:Hierarchy ;
+      dash:hidden true ;
+    ],
+    [
+      sh:name "Name" ;
+      sh:path schema:name ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:string ;
+      sh:order 1 ;
+    ],
+    [
+
+      sh:name 'Root dimension' ;
+      sh:path univoca:dimension ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:IRI ;
+      dash:editor dash:InstancesSelectEditor ;
+      hydra:collection </term-sets> ;
+      sh:order 5 ;
+    ],
+    [
+      sh:name "Root" ;
+      sh:path meta:hierarchyRoot ;
+      sh:minCount 1 ;
+      sh:nodeKind sh:IRI ;
+      dash:editor dash:AutoCompleteEditor ;
+      sh:order 10 ;
+      hydra:search
+        [
+          hydra:variableRepresentation hydra:ExplicitRepresentation ;
+          hydra:template "/terms?canonical&dimension={dimension}{&q}" ;
+          hydra:mapping
+            [
+              hydra:variable "dimension" ;
+              hydra:property univoca:dimension ;
+              hydra:required true ;
+            ],
+            [
+              hydra:variable "q" ;
+              hydra:property hydra:freetextQuery ;
+              sh:minLength 0 ;
+            ] ;
+        ] ;
+    ],
+    [
+      sh:name "Next level" ;
+      sh:path meta:nextInHierarchy ;
+      sh:order 15 ;
+      dash:editor dash:DetailsEditor ;
+      sh:nodeKind sh:BlankNode ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:node <#NextInHierarchy> ;
+    ] ;
+.
+
+<#NextInHierarchy>
+  sh:property
+    [
+      sh:name "Name" ;
+      sh:path schema:name ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:string ;
+      sh:order 10 ;
+    ],
+    [
+      sh:name "Type" ;
+      sh:description
+        "Select a specific type of resource. The selection will also determine the properties available for selection" ;
+      sh:path sh:targetClass ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:IRI ;
+      sh:order 15 ;
+      dash:editor univoca:HierarchyLevelTargetEditor ;
+      dcterms:source _:queryEndpoint ;
+    ],
+    [
+      sh:name "Property" ;
+      sh:description
+        "Define how this level in hierarchy connects to the parent. Select ***inverse*** to choose from properties directed from the lower level up. Otherwise, properties directed down will be show" ;
+      sh:path sh:path ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:order 20 ;
+      dash:editor univoca:HierarchyPathEditor ;
+      dcterms:source _:queryEndpoint ;
+      sh:node
+        [
+          sh:xone
+            (
+              [ sh:nodeKind sh:IRI ]
+              [
+                sh:nodeKind sh:BlankNode ;
+                sh:property
+                  [
+                    sh:path sh:inversePath ;
+                    sh:nodeKind sh:IRI ;
+                    sh:minCount 1 ;
+                    sh:maxCount 1 ;
+                  ] ;
+              ]
+            )
+        ] ;
+    ],
+    [
+      sh:name "Next level" ;
+      sh:path meta:nextInHierarchy ;
+      sh:order 25 ;
+      dash:editor dash:DetailsEditor ;
+      sh:nodeKind sh:BlankNode ;
+      sh:node <#NextInHierarchy> ;
+      sh:maxCount 1 ;
+    ] ;
+.
+
+# TODO env
+_:queryEndpoint
+  sd:endpoint <env.PUBLIC_QUERY_ENDPOINT> ;
+  foaf:page <env.TRIFID_UI> ;
+.

@@ -4,3 +4,10 @@ GET {{base}}/hierarchies
 
 ### Hierarchy search
 GET {{base}}/hierarchies?q=iea
+
+
+### Create hiererarchy
+POST {{base}}/hierarchies
+Content-Type: text/turtle
+
+< body/hierarchy/iea.ttl

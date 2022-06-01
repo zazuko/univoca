@@ -3,13 +3,14 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix univoca: <https://cube.link/univoca/>
 prefix query: <https://hypermedia.app/query#>
 prefix code: <https://code.described.at/>
+PREFIX meta: <https://cube.link/meta/>
 
 <>
-  a hydra:Collection ;
+  a univoca:HierarchyCollection ;
   hydra:memberAssertion
   [
     hydra:property rdf:type ;
-    hydra:object univoca:Hierarchy ;
+    hydra:object meta:Hierarchy ;
   ] ;
   hydra:search
     [
