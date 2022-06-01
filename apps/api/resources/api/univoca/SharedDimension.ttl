@@ -1,7 +1,7 @@
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX time: <http://www.w3.org/2006/time#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX meta: <https://krr.triply.cc/krr/sameas-meta/def/>
+PREFIX meta: <https://cube.link/meta/>
 PREFIX qudt: <http://qudt.org/schema/qudt/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
