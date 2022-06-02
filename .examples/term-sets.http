@@ -8,6 +8,9 @@ Content-Type: text/turtle
 
 < ./body/dimensions/color.ttl
 
+### Get created dimension
+GET {{base}}/dimension/colors
+
 ### Create - missing discriminator
 POST {{base}}/term-sets
 Content-Type: text/turtle

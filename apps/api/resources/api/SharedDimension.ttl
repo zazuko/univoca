@@ -9,24 +9,29 @@ prefix knossos: <https://hypermedia.app/knossos#>
 univoca:SharedDimension
   a hydra:Class ;
   hydra:apiDocumentation </api> ;
+  knossos:preprocessPayload
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimensionTerm.js#ensureSharedTermProperties> ;
+    ] ;
   knossos:preprocessResponse
     [
       a code:EcmaScriptModule ;
       code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
     ] ;
   knossos:beforeSave
-  [
-    a code:EcmaScriptModule ;
-    code:link <file:apps/api/lib/SharedDimension.js#removeGeneratedProperties> ;
-  ] ;
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#removeGeneratedProperties> ;
+    ],
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#updateTermShapeConstraints> ;
+    ] ;
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
       hydra:object univoca:SharedDimensionTerm ;
-    ],
-    [
-      hydra:property rdf:type ;
-      hydra:object schema:DefinedTerm ;
     ] ;
   hydra:supportedOperation
     [
@@ -42,7 +47,7 @@ univoca:SharedDimension
       a hydra:SupportedOperation, schema:CreateAction ;
       hydra:method "POST" ;
       hydra:title "Add term" ;
-      hydra:expects </api/univoca/SharedDimensionTerm#New> ;
+      hydra:expects </api/univoca/SharedDimensionTerm> ;
       code:implementedBy
         [
           a code:EcmaScript ;

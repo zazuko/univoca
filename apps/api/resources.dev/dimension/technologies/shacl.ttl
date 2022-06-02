@@ -1,11 +1,22 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 prefix univoca: <https://cube.link/univoca/>
+prefix meta: <https://cube.link/meta/>
 
 <>
-  a schema:DefinedTerm, univoca:SharedDimensionTerm ;
+  a univoca:SharedDimensionTerm, </term-type/technologies> ;
+  univoca:term <https://example.com/dimension/technologies/shacl> ;
+  schema:isPartOf </dimension/technologies> ;
+  dcterms:identifier "shacl" ;
+.
+
+<https://example.com/dimension/technologies/shacl>
+  a schema:DefinedTerm, meta:SharedDimensionTerm ;
   schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
   schema:identifier "shacl", "sh" ;
   schema:name "SHACL"@en ;
-  schema:inDefinedTermSet </dimension/technologies> ;
+  schema:inDefinedTermSet <https://example.com/dimension/technologies> ;
+  qb:order 20 ;
 .

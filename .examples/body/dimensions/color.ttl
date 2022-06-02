@@ -1,14 +1,38 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX schema: <http://schema.org/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix univoca: <https://cube.link/univoca/>
+prefix language: <http://lexvo.org/id/iso639-1/>
 
 <>
   rdf:type univoca:NewDimension ;
   schema:name "Color dimension" ;
   dcterms:identifier "colors" ;
   univoca:dimension <https://foo.bar/dimension/colors> ;
+  univoca:termShape
+    [
+      sh:property
+        [
+          univoca:required true ;
+          sh:datatype xsd:integer ;
+          sh:path qb:order ;
+          sh:name "Order" ;
+          univoca:dynamicPropertyType "Literal" ;
+          univoca:multipleValues false ;
+        ],
+        [
+          univoca:dynamicPropertyType "Lang String" ;
+          univoca:required false ;
+          sh:name "Help text" ;
+          sh:path rdfs:comment ;
+          univoca:languageIn language:de, language:fr, language:en ;
+          univoca:multipleValues true ;
+        ] ;
+    ] ;
 .
 
 <https://foo.bar/dimension/colors>

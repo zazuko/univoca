@@ -1,8 +1,7 @@
 import { sparql } from '@tpluscode/sparql-builder'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { toRdf } from 'rdf-literal'
-
-const TRUE = toRdf(true)
+import { TRUE } from '../rdf.js'
 
 export function onlyValidTerms({ subject, object }) {
   if (object.term.equals(TRUE)) {

@@ -1,0 +1,24 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix events: <https://hypermedia.app/events#>
+prefix code: <https://code.described.at/>
+prefix univoca: <https://cube.link/univoca/>
+
+<>
+  a events:EventHandler ;
+  events:eventSpec
+    [
+      rdf:predicate rdf:type ;
+      rdf:object as:Create, as:Update ;
+    ] ;
+  events:objectSpec
+    [
+      rdf:predicate rdf:type ;
+      rdf:object univoca:SharedDimension ;
+    ] ;
+  code:implementedBy
+    [
+      rdf:type code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/TermShape.js#generate> ;
+    ] ;
+.

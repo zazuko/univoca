@@ -17,7 +17,7 @@ prefix univoca: <https://cube.link/univoca/>
       sh:maxCount 1 ;
     ],
     [
-      sh:path univoca:dimensionTerm ;
+      sh:path univoca:term ;
       sh:name "Term" ;
       sh:minCount 1 ;
       sh:maxCount 1 ;

@@ -1,0 +1,143 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dash: <http://datashapes.org/dash#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+prefix univoca: <https://cube.link/univoca/>
+prefix sh1: <https://forms.hypermedia.app/shaperone#>
+prefix iso6391: <http://lexvo.org/id/iso639-1/>
+
+<>
+  a sh:NodeShape ;
+  sh1:xoneDiscriminator univoca:dynamicPropertyType ;
+  sh:property
+    [
+      sh:name "Term Property" ;
+      sh:path sh:property ;
+      sh:node
+        [
+          sh:property
+            [
+              sh:name "Name" ;
+              sh:path sh:name ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:order 5 ;
+            ],
+            [
+              sh:name "Property" ;
+              sh:path sh:path ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:order 10 ;
+            ],
+            [
+              sh:name "Predicate" ;
+              sh:path univoca:dynamicPropertyType ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:in ( 'Literal' 'Shared Term' 'Lang String' ) ;
+              sh:order 20 ;
+            ],
+            [
+              sh:name 'Required' ;
+              sh:path univoca:required ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:datatype xsd:boolean ;
+              sh:defaultValue false ;
+              sh:order 15 ;
+            ],
+            [
+              sh:name 'Allow multiple' ;
+              sh:path univoca:multipleValues ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:datatype xsd:boolean ;
+              sh:defaultValue false ;
+              sh:order 15 ;
+            ] ;
+          sh:xone
+            (
+              [
+                sh:closed true ;
+                sh:ignoredProperties _:commonProperties ;
+                sh:property
+                  [
+                    sh:path univoca:dynamicPropertyType ;
+                    sh:hasValue "Literal" ;
+                    dash:hidden true ;
+                  ],
+                  [
+                    sh:name "Data type" ;
+                    sh:path sh:datatype ;
+                  # TODO sh:in () ;
+                    sh:minCount 1 ;
+                    sh:maxCount 1 ;
+                    sh:nodeKind sh:IRI ;
+                    sh:order 30 ;
+                  ] ;
+              ]
+              [
+                sh:closed true ;
+                sh:ignoredProperties _:commonProperties ;
+                sh:property
+                  [
+                    sh:path univoca:dynamicPropertyType ;
+                    sh:hasValue "Shared Term" ;
+                    dash:hidden true ;
+                  ],
+                  [
+                    sh:name "Shared dimension" ;
+                    sh:path sh:class ;
+                    dash:editor dash:AutoCompleteEditor ;
+                    hydra:collection </term-sets> ; # TODO all dimensions?
+                    sh:minCount 1 ;
+                    sh:maxCount 1 ;
+                    sh:nodeKind sh:IRI ;
+                    sh:order 30 ;
+                  ] ;
+              ]
+              [
+                sh:closed true ;
+                sh:ignoredProperties _:commonProperties ;
+                sh:property
+                  [
+                    sh:path univoca:dynamicPropertyType ;
+                    sh:hasValue "Lang String" ;
+                    dash:hidden true ;
+                  ],
+                  [
+                    sh:name "Languages" ;
+                    sh:path univoca:languageIn ;
+                    dash:editor sh1:CheckboxListEditor ; # TODO editor ns?
+                    sh:in
+                      (
+                      # TODO languages to a collection
+                        iso6391:de
+                        iso6391:fr
+                        iso6391:it
+                        iso6391:rm
+                        iso6391:en
+                      ) ;
+                    sh:order 30 ;
+                  ] ;
+              ]
+            ) ;
+        ]
+    ] ;
+.
+
+_:commonProperties
+  rdf:first univoca:required ;
+  rdf:rest
+    (
+      sh:path sh:name univoca:multipleValues
+    ) .
+
+iso6391:de rdfs:label "German"@en .
+iso6391:fr rdfs:label "French"@en .
+iso6391:it rdfs:label "Italian"@en .
+iso6391:en rdfs:label "English"@en .
+iso6391:rm rdfs:label "Romansh"@en .

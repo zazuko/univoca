@@ -15,10 +15,38 @@ prefix knossos: <https://hypermedia.app/knossos#>
   a univoca:SharedDimension ;
   schema:name "Technologies" ;
   univoca:dimension <https://example.com/dimension/technologies> ;
+  univoca:termShape
+    [
+      sh:deactivated true ;
+      sh:targetClass </term-type/technologies> ;
+      sh:property
+        [
+          univoca:dynamicPropertyType "Lang String" ;
+          univoca:required false ;
+          sh:name "Help text" ;
+          sh:path rdfs:comment ;
+          univoca:languageIn language:de, language:fr, language:en ;
+          univoca:multipleValues true ;
+        ],
+        [
+          schema:multipleValues false ;
+          sh:datatype xsd:integer ;
+          sh:path qb:order ;
+          sh:name "Order" ;
+          univoca:dynamicPropertyType "Literal" ;
+        ],
+        [
+          sh:class <http://example.com/dimension/colors> ;
+          sh:path schema:color ;
+          univoca:multipleValues false ;
+          sh:name "Color" ;
+          univoca:dynamicPropertyType "Shared Term" ;
+        ]
+    ] ;
   # TODO: initialize when creating dimension
   hydra:memberAssertion
     [
-      hydra:property schema:inDefinedTermSet ;
+      hydra:property schema:isPartOf ;
       hydra:object <> ;
     ] ;
   knossos:memberTemplate
@@ -37,28 +65,4 @@ prefix knossos: <https://hypermedia.app/knossos#>
   a schema:DefinedTermSet, meta:SharedDimension ;
   schema:name "Technologies"@en ;
   schema:validFrom "2021-01-20T23:59:59Z"^^xsd:dateTime ;
-  schema:additionalProperty
-    [
-      univoca:dynamicPropertyType "Lang String" ;
-      hydra:required false ;
-      rdfs:label "Help text" ;
-      rdf:predicate rdfs:comment ;
-      sh:languageIn language:de, language:fr, language:en ;
-    ],
-    [
-
-      hydra:required false ;
-      sh:datatype xsd:integer ;
-      rdf:predicate qb:order ;
-      rdfs:label "Order" ;
-      univoca::dynamicPropertyType "Literal" ;
-    ],
-    [
-      hydra:required true ;
-      sh:class <http://example.com/dimension/colors> ;
-      rdf:predicate schema:color ;
-      schema:multipleValues true ;
-      rdfs:label "Color" ;
-      univoca:dynamicPropertyType "Shared Term" ;
-    ]
 .

@@ -20,7 +20,6 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
       sh:maxCount 4 ;
       sh:languageIn ( "de" "fr" "it" "rm" "en" ) ;
       sh:order 10 ;
-      sh:group _:defaultGroup ;
     ],
     [
       sh:name 'Valid from' ;
@@ -29,7 +28,6 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
       sh:datatype xsd:dateTime ;
     # TODO defaultValue: $rdf.literal(new Date().toISOString(), xsd.dateTime),
       sh:order 20 ;
-      sh:group _:defaultGroup ;
     ],
     [
       sh:name 'Valid to' ;
@@ -37,7 +35,6 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
       sh:maxCount 1 ;
       sh:datatype xsd:dateTime ;
       sh:order 25 ;
-      sh:group _:defaultGroup ;
     ],
     [
       sh:name 'Default metadata' ;
@@ -48,22 +45,9 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
       sh:nodeKind sh:BlankNodeOrIRI ;
       sh:defaultValue [] ;
       sh:order 30 ;
-      sh:group _:defaultGroup ;
       sh:node _:metadataShape ;
-    ],
-    [
-      sh:name 'Term properties' ;
-      sh:description 'Additional properties for Shared Terms' ;
-      sh:path schema:additionalProperty ;
-      sh:order 40 ;
-      sh:nodeKind sh:BlankNodeOrIRI ;
-      sh:group _:propertyGroup ;
-      sh:node _:termProperties ;
     ] ;
 .
-
-_:defaultGroup rdfs:label "Dimension" .
-_:propertyGroup rdfs:label "Term properties" .
 
 _:metadataShape
   sh:property
