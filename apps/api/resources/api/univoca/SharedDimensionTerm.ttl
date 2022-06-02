@@ -1,6 +1,6 @@
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 
 <>
   a sh:NodeShape ;

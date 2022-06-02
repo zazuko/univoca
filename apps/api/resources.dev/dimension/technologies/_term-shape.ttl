@@ -4,7 +4,7 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 prefix language: <http://lexvo.org/id/iso639-1/>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 
 # Generated when term set is saved
 <>

@@ -4,7 +4,7 @@ PREFIX dash: <http://datashapes.org/dash#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 prefix sh1: <https://forms.hypermedia.app/shaperone#>
 prefix iso6391: <http://lexvo.org/id/iso639-1/>
 

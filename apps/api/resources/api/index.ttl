@@ -3,7 +3,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix hydra: <http://www.w3.org/ns/hydra/core#>
 prefix code: <https://code.described.at/>
 prefix knossos: <https://hypermedia.app/knossos#>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 prefix hex: <https://w3id.org/hydra/extension#>
 
 <>

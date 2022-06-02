@@ -1,6 +1,6 @@
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX acl: <http://www.w3.org/ns/auth/acl#>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 
 <>
   a acl:Authorization ;

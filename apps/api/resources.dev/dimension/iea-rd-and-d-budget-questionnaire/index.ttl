@@ -7,7 +7,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix schema: <http://schema.org/>
 prefix meta: <https://cube.link/meta/>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 
 <>
   a univoca:SharedDimension ;

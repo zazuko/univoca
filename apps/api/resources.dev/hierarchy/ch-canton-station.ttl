@@ -1,7 +1,7 @@
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX schema: <http://schema.org/>
 PREFIX meta: <https://cube.link/meta/>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 
 <>
   a meta:Hierarchy, univoca:Hierarchy ;

@@ -1,6 +1,6 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
-prefix univoca: <https://cube.link/univoca/>
+prefix univoca: <https://described.at/univoca/>
 prefix query: <https://hypermedia.app/query#>
 prefix code: <https://code.described.at/>
 PREFIX meta: <https://cube.link/meta/>
