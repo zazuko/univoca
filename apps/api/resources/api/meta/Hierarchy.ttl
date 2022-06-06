@@ -35,7 +35,7 @@ prefix univoca: <https://described.at/univoca/>
       sh:maxCount 1 ;
       sh:nodeKind sh:IRI ;
       dash:editor dash:InstancesSelectEditor ;
-      hydra:collection </term-sets> ;
+      hydra:collection </dimensions> ;
       sh:order 5 ;
     ],
     [

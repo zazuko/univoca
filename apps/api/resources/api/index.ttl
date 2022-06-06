@@ -1,3 +1,5 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX schema: <http://schema.org/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix hydra: <http://www.w3.org/ns/hydra/core#>
@@ -5,6 +7,7 @@ prefix code: <https://code.described.at/>
 prefix knossos: <https://hypermedia.app/knossos#>
 prefix univoca: <https://described.at/univoca/>
 prefix hex: <https://w3id.org/hydra/extension#>
+prefix query: <https://hypermedia.app/query#>
 
 <>
   a hydra:ApiDocumentation ;
@@ -76,8 +79,34 @@ univoca:TermSetCollection
       code:implementedBy
         [
           a code:EcmaScriptModule ;
-          code:link <file:apps/api/handlers/term-sets.js#post> ;
+          code:link <file:apps/api/handlers/dimensions.js#post> ;
         ] ;
       hex:multiPartPath </api#export> ;
     ] ;
 .
+sh:NodeShape
+  a hydra:Class ;
+  hydra:apiDocumentation <> ;
+  query:include
+    [
+      query:path
+        (
+        # ((sh:and|sh:xone|sh:or)/rdf:rest*)/rdf:first/(sh:property/(sh:group|sh:node))?
+          [ sh:alternativePath ( sh:and sh:xone sh:or ) ]
+          [ sh:zeroOrMorePath rdf:rest ]
+          rdf:first
+          [ sh:zeroOrOnePath ( sh:property [ sh:alternativePath ( sh:group sh:node ) ] ) ]
+        ),
+        (
+        # (((sh:and|sh:xone|sh:or)/rdf:rest*)/rdf:first)?/(sh:property/(sh:group|sh:node))?
+          [
+            sh:zeroOrOnePath
+              (
+                [ sh:alternativePath ( sh:and sh:xone sh:or ) ]
+                [ sh:zeroOrMorePath rdf:rest ]
+                rdf:first
+              )
+          ]
+          [ sh:zeroOrOnePath ( sh:property [ sh:alternativePath ( sh:group sh:node ) ] ) ]
+        )
+    ] .

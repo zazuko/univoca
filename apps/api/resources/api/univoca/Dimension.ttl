@@ -9,6 +9,7 @@ prefix univoca: <https://described.at/univoca/>
   sh:targetClass univoca:Dimension ;
   sh:property
     [
+      sh:name "Name" ;
       sh:path schema:name ;
       sh:minCount 1 ;
       sh:maxCount 1 ;

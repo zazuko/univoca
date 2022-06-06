@@ -13,6 +13,7 @@ import { APIError } from './errors'
 import { apiResourceMixin } from './mixins/ApiResource'
 import HierarchyMixin from './mixins/Hierarchy'
 import DimensionMixin from './mixins/Dimension'
+import OperationMixin from './mixins/Operation'
 import { findNodes } from 'clownface-shacl-path'
 import { FileLiteral } from '@/forms/FileLiteral'
 import { GraphPointer } from 'clownface'
@@ -30,6 +31,7 @@ Hydra.baseUri = rootURL
 
 Hydra.resources.factory.addMixin(apiResourceMixin(rootURL, segmentSeparator))
 Hydra.resources.factory.addMixin(HierarchyMixin)
+Hydra.resources.factory.addMixin(OperationMixin)
 Hydra.resources.factory.addMixin(DimensionMixin)
 Hydra.resources.factory.addMixin(...ShapeBundle)
 Hydra.resources.factory.addMixin(ThingMixin)

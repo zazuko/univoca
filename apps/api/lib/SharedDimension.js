@@ -1,6 +1,8 @@
 import { dcterms, rdf, schema, sh } from '@tpluscode/rdf-ns-builders'
 import httpError from 'http-errors'
 import { univoca, meta } from '@univoca/core/ns.js'
+import { isBlankNode } from 'is-graph-pointer'
+import $rdf from 'rdf-ext'
 import * as CONST from './rdf.js'
 
 export function injectTermsLink(req, pointer) {
@@ -19,15 +21,35 @@ export function prepareCreated(req, pointer) {
     throw new httpError.BadRequest('Missing expected RDF type')
   }
 
+  const identifier = pointer.out(dcterms.identifier).value
   pointer
     .out(univoca.dimension)
     .addOut(rdf.type, [meta.SharedDimension, schema.DefinedTermSet])
-  pointer
-    .out(univoca.termShape)
-    .addOut(sh.targetClass, req.rdf.namedNode(`/term-type/${pointer.out(dcterms.identifier).value}`))
+
+  let termShape = pointer.out(univoca.termShape)
+  if (!termShape.term) {
+    termShape = pointer.blankNode().addIn(univoca.termShape, pointer)
+  }
+  termShape
+    .addOut(sh.targetClass, req.rdf.namedNode(`/term-type/${identifier}`))
     .addOut(sh.deactivated, true)
 
-  // TODO: when univoca:dimension is blank node, turn it into a URI
+  const dimension = pointer.out(univoca.dimension)
+  if (isBlankNode(dimension)) {
+    // TODO: change hardcoded URI
+    const dimensionIri = dimension.namedNode(`https://ld.admin.ch/cube/dimension/${identifier}`).term
+
+    for (const quad of dimension.dataset) {
+      if (quad.subject.equals(dimension.term)) {
+        dimension.dataset.delete(quad)
+        dimension.dataset.add($rdf.quad(dimensionIri, quad.predicate, quad.object, quad.graph))
+      }
+      if (quad.object.equals(dimension.term)) {
+        dimension.dataset.delete(quad)
+        dimension.dataset.add($rdf.quad(quad.subject, quad.predicate, dimensionIri, quad.graph))
+      }
+    }
+  }
 }
 
 export function removeGeneratedProperties({ after }) {

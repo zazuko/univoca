@@ -92,7 +92,7 @@ prefix iso6391: <http://lexvo.org/id/iso639-1/>
                     sh:name "Shared dimension" ;
                     sh:path sh:class ;
                     dash:editor dash:AutoCompleteEditor ;
-                    hydra:collection </term-sets> ; # TODO all dimensions?
+                    hydra:collection </dimensions> ; # TODO all dimensions?
                     sh:minCount 1 ;
                     sh:maxCount 1 ;
                     sh:nodeKind sh:IRI ;

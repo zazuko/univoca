@@ -15,17 +15,28 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
   sh1:xoneDiscriminator rdf:type ;
   sh:property
     [
+      sh:name "Create as" ;
       sh:path rdf:type ;
       sh:deactivated true ;
-      sh:in ( univoca:NewDimension univoca:ImportedDimension ) ;
+      sh:in
+      (
+        univoca:NewDimension
+        # univoca:ImportedDimension
+      ) ;
       sh:defaultValue univoca:NewDimension ;
+      sh:minCount 1;
+      sh:maxCount 1;
       sh:group _:defaultGroup ;
+      sh:order 0 ;
     ],
     [
+      sh:name "Name" ;
       sh:path schema:name ;
       sh:minCount 1 ;
       sh:maxCount 1 ;
       sh:datatype xsd:string ;
+      sh:group _:defaultGroup ;
+      sh:order 10 ;
     ] ;
   sh:xone
     (
@@ -63,9 +74,9 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
           ],
           [
             sh:name "Identifier" ;
-            sh:description "A lowercase, alphanumeric value which identifies a shared dimension" ;
+            sh:description "A lowercase, alphanumeric value which identifies a dimension" ;
             sh:path dcterms:identifier ;
-            sh:order 0 ;
+            sh:order 20 ;
             sh:minCount 1 ;
             sh:maxCount 1 ;
             sh:pattern "^[a-z0-9-]+$" ;
@@ -76,7 +87,11 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
             sh:name "dimension" ;
             sh:node </api/meta/SharedDimension> ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:group _:defaultGroup ;
+            sh:defaultValue [] ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:group _:dimensionGroup ;
+            sh:order 30 ;
           ],
           [
             sh:name 'Term properties' ;
@@ -92,4 +107,8 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
 .
 
 _:defaultGroup rdfs:label "Dimension" .
+_:dimensionGroup rdfs:label "Dimension" .
 _:propertyGroup rdfs:label "Term properties" .
+
+univoca:NewDimension rdfs:label "New dimension" .
+univoca:ImportedDimension rdfs:label "Imported dimension" .

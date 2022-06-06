@@ -3,7 +3,7 @@ import $rdf from 'rdf-ext'
 import { sh } from '@tpluscode/rdf-ns-builders'
 import { fromPointer as nodeShape } from '@rdfine/shacl/lib/NodeShape'
 import { fromPointer as propertyShape } from '@rdfine/shacl/lib/PropertyShape'
-import { univoca } from './ns.js'
+import { univoca } from '@univoca/core/ns.js'
 import { FALSE, TRUE } from './rdf.js'
 
 export async function generate({ req, event }) {

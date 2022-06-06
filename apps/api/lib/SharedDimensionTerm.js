@@ -1,5 +1,5 @@
 import { rdf, schema, sh } from '@tpluscode/rdf-ns-builders'
-import { univoca, meta } from './ns.js'
+import { univoca, meta } from '@univoca/core/ns.js'
 
 export async function ensureSharedTermProperties(req, pointer) {
   if (req.method === 'POST') {
