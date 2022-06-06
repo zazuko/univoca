@@ -1,6 +1,7 @@
 import cors from 'cors'
 
 export const middleware = () => cors({
-  allowedHeaders: ['Link'],
+  allowedHeaders: ['Authorization'],
+  exposedHeaders: ['Link'],
   origin: 'https://app.univoca.lndo.site',
 })

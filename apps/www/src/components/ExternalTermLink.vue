@@ -8,14 +8,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { SharedDimensionTerm } from '../store/types'
+import { DimensionTerm } from '../store/types'
 import { NamedNode } from 'rdf-js'
 
 export default defineComponent({
   name: 'ExternalTermLink',
   props: {
     term: {
-      type: Object as PropType<SharedDimensionTerm | NamedNode>,
+      type: Object as PropType<DimensionTerm | NamedNode>,
       required: true,
     },
   },

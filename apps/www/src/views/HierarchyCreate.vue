@@ -38,7 +38,7 @@ export default defineComponent({
 
     const form = useHydraForm(operation, {
       async afterSubmit (hierarchy: any) {
-        store.dispatch('hierarchies/fetchCollection')
+        store.dispatch('hierarchies/fetch')
 
         displayToast({
           message: `Hierarchy ${hierarchy.name} successfully created`,

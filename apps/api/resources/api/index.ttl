@@ -69,7 +69,7 @@ univoca:TermSetCollection
     ] ;
   hydra:supportedOperation
     [
-      a schema:CreateAction ;
+      a hydra:supportedOperation, schema:CreateAction ;
       hydra:method "POST" ;
       hydra:title "Create shared dimension" ;
       hydra:expects </api/univoca/NewOrImportedDimension> ;

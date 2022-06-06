@@ -26,26 +26,26 @@ import { useHydraForm } from '@/use-hydra-form'
 import { displayToast } from '@/use-toast'
 
 export default defineComponent({
-  name: 'SharedDimensionCreateView',
+  name: 'DimensionCreateView',
   components: { SidePane, HydraOperationForm },
 
   setup () {
     const store = useStore<RootState>()
     const router = useRouter()
 
-    const collection = store.state.sharedDimensions.collection
+    const collection = store.state.dimensions.collection
     const operation = computed(() => collection?.actions.create ?? null)
 
     const form = useHydraForm(operation, {
       async afterSubmit (dimension: any) {
-        await store.dispatch('sharedDimensions/fetchCollection')
+        await store.dispatch('dimensions/fetch')
 
         displayToast({
-          message: `Shared dimension ${dimension.name} successfully created`,
+          message: `Dimension ${dimension.name} successfully created`,
           variant: 'success',
         })
 
-        router.push({ name: 'SharedDimension', params: { id: dimension.clientPath } })
+        router.push({ name: 'Dimension', params: { id: dimension.clientPath } })
       },
     })
 
@@ -54,7 +54,7 @@ export default defineComponent({
 
   methods: {
     onCancel (): void {
-      this.$router.push({ name: 'SharedDimensions' })
+      this.$router.push({ name: 'Dimensions' })
     },
   },
 })

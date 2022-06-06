@@ -6,7 +6,7 @@ prefix univoca: <https://described.at/univoca/>
 prefix meta: <https://cube.link/meta/>
 
 <>
-  a univoca:SharedDimensionTerm, </term-type/technologies> ;
+  a univoca:DimensionTerm, </term-type/technologies> ;
   univoca:term <https://example.com/dimension/technologies/rdf> ;
   schema:isPartOf </dimension/technologies> ;
   dcterms:identifier "rdf" ;

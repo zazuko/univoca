@@ -12,9 +12,9 @@
     </div>
     <div class="navbar-menu" :class="{ 'is-active': isOpen }">
       <div class="navbar-start">
-        <router-link :to="{ name: 'SharedDimensions' }" v-slot="{ href, navigate, route }" custom>
+        <router-link :to="{ name: 'Dimensions' }" v-slot="{ href, navigate, route }" custom>
           <a :href="href" @click="navigate" class="navbar-item" :class="{ 'is-active': isRouteActive(route, $route) }">
-            Shared Dimensions
+            Dimensions
           </a>
         </router-link>
         <router-link :to="{ name: 'Hierarchies' }" v-slot="{ href, navigate, route }" custom>

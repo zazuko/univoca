@@ -28,7 +28,7 @@ import { RouteLocation, useRoute, useRouter } from 'vue-router'
 import { api } from '@/api'
 import HydraOperationFormWithRaw from '@/components/HydraOperationFormWithRaw.vue'
 import SidePane from '@/components/SidePane.vue'
-import { RootState, SharedDimensionTerm } from '@/store/types'
+import { RootState, DimensionTerm } from '@/store/types'
 import { useHydraForm } from '@/use-hydra-form'
 import { displayToast } from '@/use-toast'
 
@@ -44,7 +44,7 @@ export default defineComponent({
     const dimension = store.state.sharedDimension.dimension
     if (!dimension) throw new Error('Dimension not loaded')
 
-    const term: ShallowRef<SharedDimensionTerm | null> = shallowRef(null)
+    const term: ShallowRef<DimensionTerm | null> = shallowRef(null)
     const termUri = computed(() => term.value?.canonical?.value || term.value?.id.value || null)
     const operation = computed(() => term.value?.actions.replace ?? null)
 
@@ -66,7 +66,7 @@ export default defineComponent({
 
     const fetchTerm = async () => {
       const termId = route.params.termId as string
-      term.value = await api.fetchResource<SharedDimensionTerm>(termId)
+      term.value = await api.fetchResource<DimensionTerm>(termId)
 
       form.resource.value = Object.freeze(term.value.pointer)
     }

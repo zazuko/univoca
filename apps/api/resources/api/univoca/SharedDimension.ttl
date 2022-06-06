@@ -6,7 +6,7 @@ prefix univoca: <https://described.at/univoca/>
 
 <>
   a sh:NodeShape ;
-  sh:targetClass univoca:SharedDimension ;
+  sh:targetClass univoca:Dimension ;
   sh:property
     [
       sh:path schema:name ;

@@ -14,7 +14,7 @@ prefix univoca: <https://described.at/univoca/>
   events:objectSpec
     [
       rdf:predicate rdf:type ;
-      rdf:object univoca:SharedDimension ;
+      rdf:object univoca:Dimension ;
     ] ;
   code:implementedBy
     [

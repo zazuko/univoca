@@ -2,7 +2,7 @@
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
 @prefix univoca: <https://described.at/univoca/> .
 
-<> a hydra:Resource, schema:DefinedTerm, univoca:SharedDimensionTerm ;
+<> a hydra:Resource, schema:DefinedTerm, univoca:DimensionTerm ;
 	schema:name "63 Energy storage (non-transport applications)"@en ;
 	schema:identifier "63" ;
 	schema:inDefinedTermSet <../iea-rd-and-d-budget-questionnaire> ;

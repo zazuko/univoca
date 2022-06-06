@@ -10,7 +10,7 @@ prefix meta: <https://cube.link/meta/>
 prefix univoca: <https://described.at/univoca/>
 
 <>
-  a univoca:SharedDimension ;
+  a univoca:Dimension ;
   schema:name "IEA Dimension" ;
   univoca:dimension <https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire> ;
 .

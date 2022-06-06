@@ -1,12 +1,12 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { api } from '@/api'
-import { SharedDimension, SharedDimensionTerm, RootState } from '../types'
+import { Dimension, DimensionTerm, RootState } from '../types'
 import { Collection } from 'alcaeus'
 import Remote, { RemoteData } from '@/remote'
 
 export interface SharedDimensionState {
-  dimension: null | SharedDimension
-  terms: RemoteData<SharedDimensionTerm[]>
+  dimension: null | Dimension
+  terms: RemoteData<DimensionTerm[]>
   page: number
   pageSize: number
 }
@@ -25,9 +25,8 @@ const actions: ActionTree<SharedDimensionState, RootState> = {
     context.commit('storeDimension', null)
     context.commit('storeTerms', Remote.notLoaded())
 
-    if (!context.rootState.sharedDimensions.collection) {
-      await context.dispatch('sharedDimensions/fetchEntrypoint', {}, { root: true })
-      await context.dispatch('sharedDimensions/fetchCollection', {}, { root: true })
+    if (!context.rootState.dimensions.collection) {
+      await context.dispatch('dimensions/fetch', {}, { root: true })
     }
 
     const dimensions = context.rootGetters['sharedDimensions/dimensions']

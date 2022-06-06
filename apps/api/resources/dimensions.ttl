@@ -9,6 +9,6 @@ PREFIX meta: <https://cube.link/meta/>
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
-      hydra:object univoca:SharedDimension ;
+      hydra:object univoca:Dimension ;
     ] ;
 .

@@ -4,7 +4,7 @@ import { ResponseWrapper } from 'alcaeus/ResponseWrapper'
 import RdfResourceImpl, { RdfResourceCore, ResourceIdentifier } from '@tpluscode/rdfine/RdfResource'
 import { hydra, sh } from '@tpluscode/rdf-ns-builders'
 import { ShapeBundle } from '@rdfine/shacl/bundles'
-import { Shape, ValidationReportMixin, ValidationResultMixin } from '@rdfine/shacl'
+import { NodeShape, Shape, ValidationReportMixin, ValidationResultMixin } from '@rdfine/shacl'
 import { ThingMixin } from '@rdfine/schema'
 import { Store } from 'vuex'
 import store from '@/store'
@@ -12,6 +12,7 @@ import { RootState } from '@/store/types'
 import { APIError } from './errors'
 import { apiResourceMixin } from './mixins/ApiResource'
 import HierarchyMixin from './mixins/Hierarchy'
+import DimensionMixin from './mixins/Dimension'
 import { findNodes } from 'clownface-shacl-path'
 import { FileLiteral } from '@/forms/FileLiteral'
 import { GraphPointer } from 'clownface'
@@ -29,6 +30,7 @@ Hydra.baseUri = rootURL
 
 Hydra.resources.factory.addMixin(apiResourceMixin(rootURL, segmentSeparator))
 Hydra.resources.factory.addMixin(HierarchyMixin)
+Hydra.resources.factory.addMixin(DimensionMixin)
 Hydra.resources.factory.addMixin(...ShapeBundle)
 Hydra.resources.factory.addMixin(ThingMixin)
 Hydra.resources.factory.addMixin(ValidationReportMixin)
@@ -68,8 +70,7 @@ export const api = {
   },
 
   async fetchOperationShape (operation: RuntimeOperation, { targetClass }: { targetClass?: Term } = {}): Promise<Shape | null> {
-    const expects: RdfResource | undefined = operation.expects
-      .find(expects => 'load' in expects && expects.types.has(sh.Shape))
+    const expects: RdfResource | undefined = operation.expects.find(expects => 'load' in expects)
 
     const headers: HeadersInit = {}
     if (targetClass) {
@@ -78,11 +79,12 @@ export const api = {
 
     if (expects && expects.load) {
       const { representation } = await expects.load<Shape>(headers)
-      if (representation && representation.root) {
-        return representation.root
+      if (isShape(representation?.root)) {
+        return representation!.root
       }
     }
 
+    console.warn('No hydra:expects found for operation or dit not dereference a sh:NodeShape')
     return null
   },
 
@@ -193,4 +195,8 @@ export function prepareHeaders (uri: string, store: Store<RootState>): Record<st
   }
 
   return headers
+}
+
+function isShape (arg: RdfResource | undefined | null): arg is NodeShape {
+  return arg?.types.has(sh.NodeShape) || false
 }

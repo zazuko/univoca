@@ -27,7 +27,7 @@ import { useHydraForm } from '@/use-hydra-form'
 import { RootState } from '@/store/types'
 
 export default defineComponent({
-  name: 'SharedDimensionEditView',
+  name: 'DimensionEditView',
   components: { SidePane, HydraOperationFormWithRaw },
 
   setup () {
@@ -42,7 +42,7 @@ export default defineComponent({
 
     const form = useHydraForm(operation, {
       afterSubmit (dimension: any) {
-        store.dispatch('sharedDimensions/fetchCollection').then(() =>
+        store.dispatch('dimensions/fetch').then(() =>
           store.dispatch('sharedDimension/fetchDimension', dimension.clientPath)
         )
 

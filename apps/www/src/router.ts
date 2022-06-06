@@ -8,12 +8,12 @@ import Authenticated from '@/views/Authenticated.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 import Logout from '@/views/Logout.vue'
 import NotAuthorized from '@/views/NotAuthorized.vue'
-import SharedDimensions from '@/views/SharedDimensions.vue'
-import SharedDimension from '@/views/SharedDimension.vue'
-import SharedDimensionCreate from '@/views/SharedDimensionCreate.vue'
+import Dimensions from '@/views/Dimensions.vue'
+import Dimension from '@/views/Dimension.vue'
+import DimensionCreate from '@/views/DimensionCreate.vue'
 import SharedDimensionTermCreate from '@/views/SharedDimensionTermCreate.vue'
 import SharedDimensionTermEdit from '@/views/SharedDimensionTermEdit.vue'
-import SharedDimensionEdit from '@/views/SharedDimensionEdit.vue'
+import DimensionEdit from '@/views/DimensionEdit.vue'
 import Hierarchies from '@/views/Hierarchies.vue'
 import HierarchyCreate from '@/views/HierarchyCreate.vue'
 import Hierarchy from '@/views/Hierarchy.vue'
@@ -24,29 +24,29 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Authenticated,
-    redirect: { name: 'SharedDimensions' },
+    redirect: { name: 'Dimensions' },
     children: [
       {
-        path: '/shared-dimensions',
-        name: 'SharedDimensions',
-        component: SharedDimensions,
+        path: '/dimensions',
+        name: 'Dimensions',
+        component: Dimensions,
         children: [
           {
             path: 'new',
-            name: 'SharedDimensionCreate',
-            component: SharedDimensionCreate,
+            name: 'DimensionCreate',
+            component: DimensionCreate,
           },
         ],
       },
       {
-        path: '/shared-dimensions/:id',
-        name: 'SharedDimension',
-        component: SharedDimension,
+        path: '/dimension/:id',
+        name: 'Dimension',
+        component: Dimension,
         children: [
           {
             path: 'edit',
-            name: 'SharedDimensionEdit',
-            component: SharedDimensionEdit,
+            name: 'DimensionEdit',
+            component: DimensionEdit,
           },
           {
             path: 'terms/new',

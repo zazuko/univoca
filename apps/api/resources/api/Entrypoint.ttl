@@ -1,0 +1,11 @@
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix query: <https://hypermedia.app/query#>
+
+<>
+  a hydra:Class ;
+  hydra:apiDocumentation <> ;
+  query:include
+    [
+      query:path hydra:collection ;
+    ] ;
+.

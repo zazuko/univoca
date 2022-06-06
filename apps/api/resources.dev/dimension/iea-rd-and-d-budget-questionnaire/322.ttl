@@ -2,7 +2,7 @@
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
 @prefix univoca: <https://described.at/univoca/> .
 
-<> a hydra:Resource, schema:DefinedTerm, univoca:SharedDimensionTerm ;
+<> a hydra:Resource, schema:DefinedTerm, univoca:DimensionTerm ;
 	schema:name "322 Offshore wind technologies (excl. low wind speed)"@en ;
 	schema:identifier "322" ;
 	schema:inDefinedTermSet <../iea-rd-and-d-budget-questionnaire> ;

@@ -59,8 +59,7 @@ export default defineComponent({
   },
 
   async mounted (): Promise<void> {
-    await this.$store.dispatch('sharedDimensions/fetchEntrypoint')
-    await this.$store.dispatch('hierarchies/fetchCollection')
+    await this.$store.dispatch('hierarchies/fetch')
   },
 })
 </script>

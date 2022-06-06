@@ -1,3 +1,8 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 prefix hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://described.at/univoca/>
 
-<> a hydra:Resource .
+</>
+  a hydra:Resource, </api/Entrypoint> ;
+  hydra:collection </dimensions>, </hierarchies> ;
+.

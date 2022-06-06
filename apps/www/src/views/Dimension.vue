@@ -143,12 +143,12 @@ import SharedDimensionTags from '@/components/SharedDimensionTags.vue'
 import ExternalTermLink from '@/components/ExternalTermLink.vue'
 import TermDisplay from '@/components/TermDisplay.vue'
 import DownloadButton from '@/components/DownloadButton.vue'
-import { SharedDimension, SharedDimensionTerm } from '../store/types'
+import { Dimension, DimensionTerm } from '../store/types'
 import { confirmDialog } from '@/use-dialog'
 import { mapState } from 'vuex'
 
 export default defineComponent({
-  name: 'SharedDimensionView',
+  name: 'DimensionView',
   components: {
     BMessage,
     HydraOperationButton,
@@ -198,7 +198,7 @@ export default defineComponent({
       this.$store.dispatch('sharedDimension/changePageSize', newPageSize)
     },
 
-    deleteDimension (dimension: SharedDimension): void {
+    deleteDimension (dimension: Dimension): void {
       confirmDialog({
         title: dimension.actions.delete?.title,
         message: 'Are you sure you want to delete this shared dimension?',
@@ -213,7 +213,7 @@ export default defineComponent({
       })
     },
 
-    deleteTerm (term: SharedDimensionTerm): void {
+    deleteTerm (term: DimensionTerm): void {
       confirmDialog({
         title: term.actions.delete?.title,
         message: 'Are you sure you want to delete this term?',

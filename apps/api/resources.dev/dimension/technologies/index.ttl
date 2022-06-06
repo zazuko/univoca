@@ -12,7 +12,7 @@ prefix language: <http://lexvo.org/id/iso639-1/>
 prefix knossos: <https://hypermedia.app/knossos#>
 
 <>
-  a univoca:SharedDimension ;
+  a univoca:Dimension ;
   schema:name "Technologies" ;
   univoca:dimension <https://example.com/dimension/technologies> ;
   univoca:termShape

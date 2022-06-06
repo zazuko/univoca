@@ -2,7 +2,7 @@
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
 @prefix univoca: <https://described.at/univoca/> .
 
-<> a hydra:Resource, schema:DefinedTerm, univoca:SharedDimensionTerm ;
+<> a hydra:Resource, schema:DefinedTerm, univoca:DimensionTerm ;
 	schema:name "6221 Load management (incl. renewable integration)"@en ;
 	schema:identifier "6221" ;
 	schema:inDefinedTermSet <../iea-rd-and-d-budget-questionnaire> ;

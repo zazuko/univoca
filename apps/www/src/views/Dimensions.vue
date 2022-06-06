@@ -2,12 +2,12 @@
   <page-content class="container-narrow">
     <div class="mb-4 is-flex is-align-items-center is-justify-content-space-between">
       <h2 class="title is-size-4 mb-0">
-        Shared Dimensions
+        Dimensions
       </h2>
-      <div v-if="collection">
+      <div v-if="collection.actions.create">
         <hydra-operation-button
           :operation="collection.actions.create"
-          :to="{ name: 'SharedDimensionCreate' }"
+          :to="{ name: 'DimensionCreate' }"
           variant="default"
           size="normal"
           :label="collection.actions.create.title"
@@ -19,7 +19,7 @@
         <router-link
           v-for="dimension in dimensions"
           :key="dimension.id.value"
-          :to="{ name: 'SharedDimension', params: { id: dimension.clientPath } }"
+          :to="{ name: 'Dimension', params: { id: dimension.clientPath } }"
           class="panel-block"
         >
           <div class="is-flex-grow-1 is-flex is-justify-content-space-between">
@@ -51,19 +51,18 @@ import SharedDimensionTags from '@/components/SharedDimensionTags.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default defineComponent({
-  name: 'CubeProjectsView',
+  name: 'DimensionsView',
   components: { PageContent, LoadingBlock, HydraOperationButton, SharedDimensionTags },
 
   async mounted (): Promise<void> {
-    await this.$store.dispatch('sharedDimensions/fetchEntrypoint')
-    await this.$store.dispatch('sharedDimensions/fetchCollection')
+    await this.$store.dispatch('dimensions/fetch')
   },
 
   computed: {
-    ...mapState('sharedDimensions', {
+    ...mapState('dimensions', {
       collection: 'collection',
     }),
-    ...mapGetters('sharedDimensions', {
+    ...mapGetters('dimensions', {
       dimensions: 'dimensions',
     }),
   },

@@ -6,7 +6,7 @@ prefix univoca: <https://described.at/univoca/>
 prefix code: <https://code.described.at/>
 prefix knossos: <https://hypermedia.app/knossos#>
 
-univoca:SharedDimension
+univoca:Dimension
   a hydra:Class ;
   hydra:apiDocumentation </api> ;
   knossos:preprocessPayload
@@ -31,7 +31,7 @@ univoca:SharedDimension
   hydra:memberAssertion
     [
       hydra:property rdf:type ;
-      hydra:object univoca:SharedDimensionTerm ;
+      hydra:object univoca:DimensionTerm ;
     ] ;
   hydra:supportedOperation
     [

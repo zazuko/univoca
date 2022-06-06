@@ -1,3 +1,4 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX acl: <http://www.w3.org/ns/auth/acl#>
 prefix univoca: <https://described.at/univoca/>
@@ -6,6 +7,6 @@ prefix univoca: <https://described.at/univoca/>
   a acl:Authorization ;
   acl:agentClass foaf:Agent ;
   acl:mode acl:Read ;
-  acl:accessTo </term-sets>, </terms>, </hierarchies> ;
-  acl:accessToClass univoca:SharedDimension, univoca:Hierarchy ;
+  acl:accessTo </>, </dimensions>, </terms>, </hierarchies> ;
+  acl:accessToClass univoca:Dimension, univoca:Hierarchy, sh:NodeShape ;
 .

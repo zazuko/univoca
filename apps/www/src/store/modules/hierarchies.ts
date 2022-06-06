@@ -2,6 +2,8 @@ import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { api } from '@/api'
 import { RootState } from '../types'
 import { Collection } from 'alcaeus'
+import { rdf } from '@tpluscode/rdf-ns-builders/strict'
+import { univoca } from '@univoca/core/ns.js'
 
 export interface HierarchiesState {
   collection: null | Collection,
@@ -14,13 +16,16 @@ const initialState = {
 const getters: GetterTree<HierarchiesState, RootState> = {}
 
 const actions: ActionTree<HierarchiesState, RootState> = {
-  async fetchCollection (context) {
-    const entrypoint = context.rootState.sharedDimensions.entrypoint
-    const collectionURI = entrypoint?.get('md.hierarchies')?.id
+  async fetch (context) {
+    const { entrypoint } = context.rootState.api
+    const collectionURI = entrypoint?.getCollections({
+      predicate: rdf.type,
+      object: univoca.Hierarchy,
+    })?.shift()
 
     if (!collectionURI) throw new Error('Missing hierarchies collection in entrypoint')
 
-    const collection = await api.fetchResource(collectionURI.value)
+    const collection = await api.fetchResource(collectionURI.id.value)
 
     context.commit('storeCollection', collection)
   },
