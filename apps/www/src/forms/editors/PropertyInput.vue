@@ -1,0 +1,75 @@
+<template>
+  <o-field :message="fullURI">
+    <o-autocomplete
+      :model-value="textValue"
+      @update:modelValue="onUpdate"
+      :data="suggestions"
+    />
+  </o-field>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { Term } from 'rdf-js'
+import * as $rdf from '@rdf-esm/data-model'
+import { expand, shrink } from '@/rdf-properties'
+import store from '../../store'
+
+export default defineComponent({
+  name: 'PropertyInput',
+  props: {
+    value: {
+      type: Object as PropType<Term>,
+      default: undefined,
+    },
+    update: {
+      type: Function as PropType<(newValue: Term | null) => void>,
+      required: true,
+    },
+  },
+
+  computed: {
+    rdfProperties (): string[] {
+      return store.state.app.commonRDFProperties
+    },
+
+    textValue (): string {
+      if (!this.value) {
+        return ''
+      }
+
+      if (this.value.termType === 'Literal') {
+        return this.value.value
+      } else {
+        return shrink(this.value.value)
+      }
+    },
+
+    fullURI (): string {
+      if (!this.value?.value) {
+        return ''
+      }
+
+      return this.value.value
+    },
+
+    suggestions (): string[] {
+      return this.textValue
+        ? this.rdfProperties.filter((p) => p.includes(this.textValue))
+        : []
+    },
+  },
+
+  methods: {
+    onUpdate (newValue: string): void {
+      const expanded = expand(newValue)
+
+      const newTerm = expanded.startsWith('http')
+        ? $rdf.namedNode(expanded)
+        : $rdf.literal(newValue)
+
+      this.update(newTerm)
+    },
+  },
+})
+</script>

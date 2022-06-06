@@ -1,0 +1,10 @@
+{
+  "name": "@univoca/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@rdfjs/data-model": "^2.0.0",
+    "@rdfjs/namespace": "^2.0.0"
+  }
+}

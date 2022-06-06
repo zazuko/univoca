@@ -1,6 +1,6 @@
 import { dcterms, rdf, schema, sh } from '@tpluscode/rdf-ns-builders'
 import httpError from 'http-errors'
-import { univoca, meta } from './ns.js'
+import { univoca, meta } from '@univoca/core/ns.js'
 import * as CONST from './rdf.js'
 
 export function injectTermsLink(req, pointer) {

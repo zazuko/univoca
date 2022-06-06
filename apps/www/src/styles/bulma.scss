@@ -1,0 +1,88 @@
+@import "~bulma/sass/utilities/initial-variables";
+
+$body-size: 14px;
+$size-7: 0.8rem;
+$primary: $turquoise;
+
+@import "~bulma/sass/utilities/_all";
+
+$size-7: 0.8rem;
+$size-small: $size-7;
+
+$panel-shadow: none;
+$panel-heading-size: 1rem;
+$panel-radius: 0;
+
+@import "~bulma";
+@import '~@oruga-ui/theme-bulma/dist/scss/bulma';
+@import "./loading";
+
+.panel-block,
+.panel-heading,
+.panel-tabs {
+    border-bottom: 1px solid $grey-lighter;
+    border-left: 1px solid $grey-lighter;
+    border-right: 1px solid $grey-lighter;
+}
+
+.panel-block:first-child,
+.panel-heading:first-child,
+.panel-tabs:first-child {
+    border-top: 1px solid $grey-lighter;
+}
+
+.panel-block > .level-left,
+.panel-block > .level-right {
+    flex-grow: 1;
+}
+
+.panel-block input[type=checkbox] {
+    margin-right: 0;
+}
+
+.tabs.is-highlighted li.is-active a {
+    background-color: $tabs-toggle-link-active-background-color;
+    border-color: $tabs-toggle-link-active-border-color;
+    color: $tabs-toggle-link-active-color;
+}
+
+// Make Bulma colors accessible as CSS variables
+:root {
+    --color-black: #{$black};
+    --color-black-bis: #{$black-bis};
+    --color-black-ter: #{$black-ter};
+
+    --color-grey-darker: #{$grey-darker};
+    --color-grey-dark: #{$grey-dark};
+    --color-grey: #{$grey};
+    --color-grey-light: #{$grey-light};
+    --color-grey-lighter: #{$grey-lighter};
+    --color-grey-lightest: #{$grey-lightest};
+
+    --color-white-ter: #{$white-ter};
+    --color-white-bis: #{$white-bis};
+    --color-white: #{$white};
+
+    --color-primary: #{$primary};
+    --color-primary-light: #{$primary-light};
+    --color-primary-dark: #{$primary-dark};
+
+    --color-info: #{$info};
+    --color-info-light: #{$info-light};
+    --color-info-dark: #{$info-dark};
+
+    --color-success: #{$success};
+    --color-success-light: #{$success-light};
+    --color-success-dark: #{$success-dark};
+
+    --color-warning: #{$warning};
+    --color-warning-light: #{$warning-light};
+    --color-warning-dark: #{$warning-dark};
+
+    --color-danger: #{$danger};
+    --color-danger-light: #{$danger-light};
+    --color-danger-dark: #{$danger-dark};
+
+    --color-light: #{$light};
+    --color-dark: #{$dark};
+}

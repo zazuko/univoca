@@ -1,0 +1,21 @@
+@import './bulma';
+@import './utilities';
+@import './vue-select';
+
+.container-narrow {
+    max-width: 72rem;
+}
+
+form-property {
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+form-object {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.quickview.is-active {
+    box-shadow: 5px 0 13px 3px rgba(0,0,0,.2);
+}

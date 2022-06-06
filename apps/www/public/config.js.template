@@ -1,0 +1,12 @@
+window.APP_CONFIG = {
+  oidc: {
+    authority: "$AUTH_ISSUER",
+    clientId: "$AUTH_CLIENT_ID",
+    scope: "openid email profile",
+  },
+  apiBase: "$API_BASE",
+  sentry: {
+    dsn: "$SENTRY_DSN",
+    environment: "$SENTRY_ENVIRONMENT",
+  }
+};

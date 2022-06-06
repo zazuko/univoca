@@ -20,11 +20,12 @@ services:
     moreHttpPorts:
       - 30837
   www:
-    type: node
-    command: yarn wsrun -p @univoca/app -c start --disable-host-check --host 0.0.0.0
+    type: node:16
+    command: (cd apps/www; yarn serve --hostname 0.0.0.0 --port 80)
     ssl: true
-    scanner: false
-    port: 8080
+    overrides:
+      environment:
+        NO_WEBSOCKET: "true"
   store:
     type: compose
     volumes:
@@ -80,4 +81,4 @@ proxy:
   ontodia:
     - explore.univoca.lndo.site:8080
   www:
-    - univoca.lndo.site:8080/app
+    - app.univoca.lndo.site
