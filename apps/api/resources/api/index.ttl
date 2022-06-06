@@ -36,7 +36,7 @@ univoca:HierarchyCollection
     [
       a schema:CreateAction ;
       hydra:method "POST" ;
-      hydra:title "Create shared dimension" ;
+      hydra:title "Create hierarchy" ;
       hydra:expects </api/univoca/Hierarchy> ;
       code:implementedBy
         [
@@ -74,7 +74,7 @@ univoca:TermSetCollection
     [
       a hydra:supportedOperation, schema:CreateAction ;
       hydra:method "POST" ;
-      hydra:title "Create shared dimension" ;
+      hydra:title "Create dimension" ;
       hydra:expects </api/univoca/NewOrImportedDimension> ;
       code:implementedBy
         [
