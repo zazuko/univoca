@@ -233,9 +233,9 @@ export const dateTimePickerEditor: Lazy<SingleEditorComponent> = {
 export const propertyEditor: Lazy<SingleEditorComponent> = {
   editor: ns.univoca.PropertyEditor,
   async lazyRender () {
-    await import('./PropertyInput.vue').then(createCustomElement('cc-property-input'))
+    await import('./PropertyInput.vue').then(createCustomElement('uv-property-input'))
 
-    return ({ value }, { update }) => html`<cc-property-input .value="${value.object?.term}" .update="${update}"></cc-property-input>`
+    return ({ value }, { update }) => html`<uv-property-input .value="${value.object?.term}" .update="${update}"></uv-property-input>`
   },
 }
 
@@ -288,7 +288,7 @@ export const checkboxList: Lazy<MultiEditorComponent> = {
 
     return ({ property }, { update }) => {
       const values = property.objects.map(obj => obj.object?.term).filter(Boolean)
-      const choices = property.shape.in.map(term => [term, property.shape.pointer.node(term).out(rdfs.label, { language: '*' })])
+      const choices = property.shape.in.map(term => [term, property.shape.pointer.node(term).value])
       return html`<checkbox-list .value="${values}"
                                  .choices="${choices}"
                                  .update="${update}"></checkbox-list>`

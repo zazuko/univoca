@@ -30,6 +30,8 @@ prefix iso6391: <http://lexvo.org/id/iso639-1/>
             [
               sh:name "Property" ;
               sh:path sh:path ;
+              dash:editor univoca:PropertyEditor ;
+              sh:nodeKind sh:IRI ;
               sh:minCount 1 ;
               sh:maxCount 1 ;
               sh:order 10 ;
@@ -74,7 +76,8 @@ prefix iso6391: <http://lexvo.org/id/iso639-1/>
                   [
                     sh:name "Data type" ;
                     sh:path sh:datatype ;
-                  # TODO sh:in () ;
+                    dash:editor dash:InstancesSelectEditor ;
+                    hydra:collection </term-property-types> ;
                     sh:minCount 1 ;
                     sh:maxCount 1 ;
                     sh:nodeKind sh:IRI ;

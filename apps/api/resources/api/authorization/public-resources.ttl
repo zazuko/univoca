@@ -7,6 +7,6 @@ prefix univoca: <https://described.at/univoca/>
   a acl:Authorization ;
   acl:agentClass foaf:Agent ;
   acl:mode acl:Read ;
-  acl:accessTo </>, </dimensions>, </terms>, </hierarchies> ;
+  acl:accessTo </>, </dimensions>, </terms>, </hierarchies>, </term-property-types> ;
   acl:accessToClass univoca:Dimension, univoca:Hierarchy, sh:NodeShape ;
 .

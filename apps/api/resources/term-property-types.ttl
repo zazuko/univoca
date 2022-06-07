@@ -1,0 +1,42 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+
+<>
+  a hydra:Collection ;
+  hydra:member
+    xsd:string,
+    xsd:boolean,
+    xsd:integer,
+    xsd:decimal,
+    xsd:time,
+    xsd:date,
+    xsd:dateTime,
+  # xsd:float,
+  # Less used datatypes, in alphabetical order of the label
+    xsd:gDay,
+  # xsd:duration,
+  # xsd:dayTimeDuration,
+  # xsd:yearMonthDuration,
+    xsd:gMonth,
+  # xsd;gMonthDay,
+    xsd:gYear,
+    xsd:gYearMonth ;
+.
+
+xsd:string rdfs:label "string" .
+xsd:boolean rdfs:label "boolean" .
+xsd:integer rdfs:label "integer" .
+xsd:decimal rdfs:label "decimal" .
+xsd:time rdfs:label "time" .
+xsd:dateTime rdfs:label "datetime" .
+xsd:date rdfs:label "date" .
+xsd:float rdfs:label "float" .
+xsd:gDay rdfs:label "day" .
+xsd:gMonth rdfs:label "month" .
+xsd:gYear rdfs:label "year" .
+xsd:gYearMonth rdfs:label "year+month" .
+xsd:duration rdfs:label "duration" .
+xsd:dayTimeDuration rdfs:label "duration (day+time)" .
+xsd:yearMonthDuration rdfs:label "duration (year+month)" .
+xsd:gMonthDay rdfs:label "month+day" .
