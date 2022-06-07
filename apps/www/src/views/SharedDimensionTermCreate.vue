@@ -33,7 +33,7 @@ export default defineComponent({
     const store = useStore<RootState>()
     const router = useRouter()
 
-    const dimension = store.state.sharedDimension.dimension
+    const dimension = store.state.dimension.dimension
     if (!dimension) throw new Error('Dimension not loaded')
 
     const operation = computed(() => dimension.actions.create)

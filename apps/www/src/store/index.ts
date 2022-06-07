@@ -5,7 +5,7 @@ import api from './modules/api'
 import hierarchy from './modules/hierarchy'
 import hierarchies from './modules/hierarchies'
 import dimensions from './modules/dimensions'
-import sharedDimension from './modules/sharedDimension'
+import dimension from './modules/dimension'
 import { RootState } from './types'
 
 export default createStore<RootState>({
@@ -16,6 +16,6 @@ export default createStore<RootState>({
     hierarchy,
     hierarchies,
     dimensions,
-    sharedDimension,
+    dimension,
   },
 })

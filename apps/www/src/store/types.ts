@@ -5,8 +5,8 @@ import { APIState } from './modules/api'
 import { Actions } from '@/api/mixins/ApiResource'
 import { HierarchyState } from './modules/hierarchy'
 import { HierarchiesState } from './modules/hierarchies'
-import { SharedDimensionsState } from './modules/dimensions'
-import { SharedDimensionState } from './modules/sharedDimension'
+import { DimensionsState } from './modules/dimensions'
+import { DimensionState } from './modules/dimension'
 import { RdfResourceCore } from '@tpluscode/rdfine/RdfResource'
 
 export interface RootState {
@@ -15,8 +15,8 @@ export interface RootState {
   api: APIState
   hierarchy: HierarchyState
   hierarchies: HierarchiesState
-  dimensions: SharedDimensionsState
-  sharedDimension: SharedDimensionState
+  dimensions: DimensionsState
+  dimension: DimensionState
 }
 
 export interface Resource extends RdfResourceCore {

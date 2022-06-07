@@ -4,7 +4,7 @@ import { Dimension, DimensionTerm, RootState } from '../types'
 import { Collection } from 'alcaeus'
 import Remote, { RemoteData } from '@/remote'
 
-export interface SharedDimensionState {
+export interface DimensionState {
   dimension: null | Dimension
   terms: RemoteData<DimensionTerm[]>
   page: number
@@ -18,27 +18,22 @@ const getInitialState = () => ({
   pageSize: 10,
 })
 
-const getters: GetterTree<SharedDimensionState, RootState> = {}
+const getters: GetterTree<DimensionState, RootState> = {}
 
-const actions: ActionTree<SharedDimensionState, RootState> = {
-  async fetchDimension (context, id) {
+const actions: ActionTree<DimensionState, RootState> = {
+  async fetch (context, id) {
     context.commit('storeDimension', null)
     context.commit('storeTerms', Remote.notLoaded())
 
-    if (!context.rootState.dimensions.collection) {
-      await context.dispatch('dimensions/fetch', {}, { root: true })
-    }
-
-    const dimensions = context.rootGetters['sharedDimensions/dimensions']
-    const dimension = dimensions.find(({ clientPath }: { clientPath: string}) => clientPath === id)
+    const dimension = api.fetchResource<Dimension>(id)
 
     if (!dimension) throw new Error(`Dimension not found ${id}`)
 
     context.commit('storeDimension', dimension)
 
-    if (dimension.terms) {
-      context.dispatch('fetchDimensionTerms')
-    }
+    // if (dimension.terms) {
+    //      context.dispatch('fetchDimensionTerms')
+    //    }
 
     return dimension
   },
@@ -97,7 +92,7 @@ const actions: ActionTree<SharedDimensionState, RootState> = {
   },
 }
 
-const mutations: MutationTree<SharedDimensionState> = {
+const mutations: MutationTree<DimensionState> = {
   storeDimension (state, dimension) {
     state.dimension = dimension
   },

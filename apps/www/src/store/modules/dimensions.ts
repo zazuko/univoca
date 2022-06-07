@@ -5,7 +5,7 @@ import { Collection } from 'alcaeus'
 import { univoca } from '@univoca/core/ns.js'
 import { rdf } from '@tpluscode/rdf-ns-builders/strict'
 
-export interface SharedDimensionsState {
+export interface DimensionsState {
   collection: null | Collection,
 }
 
@@ -14,13 +14,13 @@ const initialState = {
   collection: null,
 }
 
-const getters: GetterTree<SharedDimensionsState, RootState> = {
+const getters: GetterTree<DimensionsState, RootState> = {
   dimensions (state) {
     return state.collection?.member ?? []
   },
 }
 
-const actions: ActionTree<SharedDimensionsState, RootState> = {
+const actions: ActionTree<DimensionsState, RootState> = {
   async fetch (context) {
     const entrypoint = context.rootState.api.entrypoint
     const collection = entrypoint?.getCollections({
@@ -37,7 +37,7 @@ const actions: ActionTree<SharedDimensionsState, RootState> = {
   },
 }
 
-const mutations: MutationTree<SharedDimensionsState> = {
+const mutations: MutationTree<DimensionsState> = {
   storeDimensions (state, collection) {
     state.collection = collection
   },

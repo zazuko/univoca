@@ -169,15 +169,15 @@ export default defineComponent({
 
   mounted (): void {
     const id = this.$route.params.id
-    this.$store.dispatch('sharedDimension/fetchDimension', id)
+    this.$store.dispatch('dimension/fetch', id)
   },
 
   beforeUnmount (): void {
-    this.$store.dispatch('sharedDimension/reset')
+    this.$store.dispatch('dimension/reset')
   },
 
   computed: {
-    ...mapState('sharedDimension', {
+    ...mapState('dimension', {
       dimension: 'dimension',
       terms: 'terms',
       page: 'page',
@@ -187,15 +187,15 @@ export default defineComponent({
 
   methods: {
     nextPage (): void {
-      this.$store.dispatch('sharedDimension/nextPage')
+      this.$store.dispatch('dimension/nextPage')
     },
 
     prevPage (): void {
-      this.$store.dispatch('sharedDimension/prevPage')
+      this.$store.dispatch('dimension/prevPage')
     },
 
     changePageSize (newPageSize: number): void {
-      this.$store.dispatch('sharedDimension/changePageSize', newPageSize)
+      this.$store.dispatch('dimension/changePageSize', newPageSize)
     },
 
     deleteDimension (dimension: Dimension): void {
@@ -208,7 +208,7 @@ export default defineComponent({
             operation: dimension.actions.delete,
             successMessage: `Dimension ${dimension.name} deleted successfully`,
           })
-          this.$router.push({ name: 'SharedDimensions' })
+          this.$router.push({ name: 'Dimensions' })
         },
       })
     },

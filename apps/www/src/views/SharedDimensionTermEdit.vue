@@ -41,7 +41,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
 
-    const dimension = store.state.sharedDimension.dimension
+    const dimension = store.state.dimension.dimension
     if (!dimension) throw new Error('Dimension not loaded')
 
     const term: ShallowRef<DimensionTerm | null> = shallowRef(null)
