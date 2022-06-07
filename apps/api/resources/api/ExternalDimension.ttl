@@ -1,0 +1,14 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://described.at/univoca/>
+prefix code: <https://code.described.at/>
+prefix knossos: <https://hypermedia.app/knossos#>
+PREFIX query: <https://hypermedia.app/query#>
+
+univoca:ExternalDimension
+  a hydra:Class ;
+  rdfs:subClassOf univoca:Dimension ;
+  hydra:apiDocumentation </api> ;
+.

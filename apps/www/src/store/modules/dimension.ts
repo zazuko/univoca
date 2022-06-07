@@ -1,14 +1,20 @@
+/* eslint-disable camelcase */
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { api } from '@/api'
 import { Dimension, DimensionTerm, RootState } from '../types'
-import { Collection } from 'alcaeus'
 import Remote, { RemoteData } from '@/remote'
+import { PartialCollectionView } from '@rdfine/hydra'
+import { hyper_query } from '@hydrofoil/vocabularies/builders/strict'
+import { hydra } from '@tpluscode/rdf-ns-builders/strict'
+import clownface from 'clownface'
+import $rdf from 'rdf-ext'
 
 export interface DimensionState {
   dimension: null | Dimension
   terms: RemoteData<DimensionTerm[]>
   page: number
   pageSize: number
+  pager?: PartialCollectionView
 }
 
 const getInitialState = () => ({
@@ -25,54 +31,39 @@ const actions: ActionTree<DimensionState, RootState> = {
     context.commit('storeDimension', null)
     context.commit('storeTerms', Remote.notLoaded())
 
-    const dimension = api.fetchResource<Dimension>(id)
+    const dimension = await api.fetchResource<Dimension>(id)
 
     if (!dimension) throw new Error(`Dimension not found ${id}`)
 
     context.commit('storeDimension', dimension)
-
-    // if (dimension.terms) {
-    //      context.dispatch('fetchDimensionTerms')
-    //    }
+    context.commit('storeTerms', Remote.loaded([...dimension.member]))
 
     return dimension
   },
 
-  async fetchDimensionTerms (context) {
-    const { dimension, page, pageSize } = context.state
-
-    if (!dimension || !dimension.terms) throw new Error('Dimension not loaded')
-
-    context.commit('storeTerms', Remote.loading())
-
-    const uri = new URL(dimension.terms.value)
-    uri.searchParams.append('page', page.toString())
-    uri.searchParams.append('pageSize', pageSize.toString())
-
-    try {
-      const termsCollection = await api.fetchResource<Collection>(uri.toString())
-      const terms = termsCollection.member
-      context.commit('storeTerms', Remote.loaded(terms))
-      return terms
-    } catch (e: any) {
-      context.commit('storeTerms', Remote.error(e.toString()))
+  nextPage (context) {
+    const { pager } = context.state
+    if (pager?.next) {
+      context.dispatch('fetch', pager.next.id)
     }
   },
 
-  nextPage (context) {
-    context.commit('storePage', context.state.page + 1)
-    context.dispatch('fetchDimensionTerms')
-  },
-
   prevPage (context) {
-    context.commit('storePage', context.state.page - 1)
-    context.dispatch('fetchDimensionTerms')
+    const { pager } = context.state
+    if (pager?.previous) {
+      context.dispatch('fetch', pager.previous.id)
+    }
   },
 
   changePageSize (context, pageSize) {
-    context.commit('storePage', 1)
-    context.commit('storePageSize', pageSize)
-    context.dispatch('fetchDimensionTerms')
+    const params = clownface({ dataset: $rdf.dataset() })
+      .blankNode()
+      .addOut(hydra.limit, pageSize)
+
+    const pageId = context.state.dimension?.search?.expand(params)
+    if (pageId) {
+      context.dispatch('fetch', pageId)
+    }
   },
 
   addTerm (context, term) {
@@ -95,6 +86,12 @@ const actions: ActionTree<DimensionState, RootState> = {
 const mutations: MutationTree<DimensionState> = {
   storeDimension (state, dimension) {
     state.dimension = dimension
+    state.pager = dimension?.view.shift()
+
+    const templateMappings = dimension?.get(hyper_query.templateMappings)
+
+    state.page = templateMappings?.getNumber(hydra.pageIndex) || 1
+    state.pageSize = templateMappings?.getNumber(hydra.limit) || state.dimension?.member?.length
   },
 
   storeTermsLoading (state) {
@@ -124,14 +121,6 @@ const mutations: MutationTree<DimensionState> = {
 
   removeTerm (state, term) {
     state.terms.data = state.terms?.data?.filter(({ clientPath }) => term.clientPath !== clientPath) ?? null
-  },
-
-  storePage (state, page) {
-    state.page = page
-  },
-
-  storePageSize (state, pageSize) {
-    state.pageSize = pageSize
   },
 
   reset (state) {

@@ -5,53 +5,31 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 prefix univoca: <https://described.at/univoca/>
 prefix code: <https://code.described.at/>
 prefix knossos: <https://hypermedia.app/knossos#>
+PREFIX query: <https://hypermedia.app/query#>
 
 univoca:Dimension
   a hydra:Class ;
   hydra:apiDocumentation </api> ;
-  knossos:preprocessPayload
-    [
-      a code:EcmaScriptModule ;
-      code:link <file:apps/api/lib/SharedDimensionTerm.js#ensureSharedTermProperties> ;
-    ] ;
   knossos:preprocessResponse
     [
       a code:EcmaScriptModule ;
       code:link <file:apps/api/lib/SharedDimension.js#injectTermsLink> ;
     ] ;
-  knossos:beforeSave
+  query:memberInclude
     [
-      a code:EcmaScriptModule ;
-      code:link <file:apps/api/lib/SharedDimension.js#removeGeneratedProperties> ;
+      query:path univoca:term ;
+    ] ;
+.
+
+<#search>
+  hydra:template "{?page,pageSize}" ;
+  hydra:mapping
+    [
+      hydra:variable "page" ;
+      hydra:property hydra:pageIndex ;
     ],
     [
-      a code:EcmaScriptModule ;
-      code:link <file:apps/api/lib/SharedDimension.js#updateTermShapeConstraints> ;
-    ] ;
-  hydra:memberAssertion
-    [
-      hydra:property rdf:type ;
-      hydra:object univoca:DimensionTerm ;
-    ] ;
-  hydra:supportedOperation
-    [
-      # Force plain resource GET rather than hydra:Collection
-      hydra:method "GET" ;
-      code:implementedBy
-        [
-          a code:EcmaScript ;
-          code:link <node:@hydrofoil/labyrinth/resource#get> ;
-        ] ;
-    ] ,
-    [
-      a hydra:SupportedOperation, schema:CreateAction ;
-      hydra:method "POST" ;
-      hydra:title "Add term" ;
-      hydra:expects </api/univoca/SharedDimensionTerm> ;
-      code:implementedBy
-        [
-          a code:EcmaScript ;
-          code:link <node:@hydrofoil/knossos/collection#CreateMember> ;
-        ] ;
+      hydra:variable "pageSize" ;
+      hydra:property hydra:limit ;
     ] ;
 .

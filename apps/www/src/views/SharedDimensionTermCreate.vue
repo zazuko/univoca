@@ -50,7 +50,7 @@ export default defineComponent({
           variant: 'success',
         })
 
-        router.push({ name: 'SharedDimension', params: { id: dimension.clientPath } })
+        router.push({ name: 'Dimension', params: { id: dimension.clientPath } })
       },
     })
 
@@ -62,7 +62,7 @@ export default defineComponent({
 
   methods: {
     onCancel (): void {
-      this.$router.push({ name: 'SharedDimension', params: { id: this.dimension.clientPath } })
+      this.$router.push({ name: 'Dimension', params: { id: this.dimension.clientPath } })
     },
   },
 })

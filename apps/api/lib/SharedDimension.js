@@ -3,6 +3,11 @@ import httpError from 'http-errors'
 import { univoca, meta } from '@univoca/core/ns.js'
 import { isBlankNode } from 'is-graph-pointer'
 import $rdf from 'rdf-ext'
+import { hydra } from '@tpluscode/rdf-ns-builders/strict'
+import { knossos } from '@hydrofoil/vocabularies/builders/strict'
+import { fromPointer as hydraTemplate } from '@rdfine/hydra/lib/IriTemplate'
+import { fromPointer as hydraTemplateMapping } from '@rdfine/hydra/lib/IriTemplateMapping'
+import { fromPointer as memberAssertion } from '@rdfine/hydra/lib/MemberAssertion'
 import * as CONST from './rdf.js'
 
 export function injectTermsLink(req, pointer) {
@@ -22,6 +27,27 @@ export function prepareCreated(req, pointer) {
   }
 
   const identifier = pointer.out(dcterms.identifier).value
+
+  pointer
+    .addOut(rdf.type, univoca.ManagedDimension)
+    .addOut(hydra.search, req.rdf.namedNode('/api/Dimension#search'))
+    .addOut(hydra.memberAssertion, (ma) => {
+      memberAssertion(ma, {
+        property: schema.isPartOf,
+        object: pointer,
+      })
+    })
+    .addOut(knossos.memberTemplate, (template) => {
+      hydraTemplate(template, {
+        template: `/dimension/${identifier}/{identifier}`,
+        mapping: hydraTemplateMapping({
+          variable: 'identifier',
+          property: dcterms.identifier,
+          required: true,
+        }),
+      })
+    })
+
   pointer
     .out(univoca.dimension)
     .addOut(rdf.type, [meta.SharedDimension, schema.DefinedTermSet])

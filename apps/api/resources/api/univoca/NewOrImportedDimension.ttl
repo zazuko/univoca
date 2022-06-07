@@ -109,8 +109,8 @@ prefix sh1: <https://forms.hypermedia.app/shaperone#>
     ) ;
 .
 
-_:defaultGroup rdfs:label "Dimension" .
-_:dimensionGroup rdfs:label "Dimension" .
+_:defaultGroup rdfs:label "Basic info" .
+_:dimensionGroup rdfs:label "Published dimension" .
 _:propertyGroup rdfs:label "Term properties" .
 
 univoca:NewDimension rdfs:label "New dimension" .

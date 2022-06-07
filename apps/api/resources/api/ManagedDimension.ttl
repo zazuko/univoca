@@ -1,0 +1,40 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix univoca: <https://described.at/univoca/>
+prefix code: <https://code.described.at/>
+prefix knossos: <https://hypermedia.app/knossos#>
+PREFIX query: <https://hypermedia.app/query#>
+
+univoca:ManagedDimension
+  a hydra:Class ;
+  rdfs:subClassOf univoca:Dimension ;
+  hydra:apiDocumentation </api> ;
+  knossos:preprocessPayload
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimensionTerm.js#ensureSharedTermProperties> ;
+    ] ;
+  knossos:beforeSave
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#removeGeneratedProperties> ;
+    ],
+    [
+      a code:EcmaScriptModule ;
+      code:link <file:apps/api/lib/SharedDimension.js#updateTermShapeConstraints> ;
+    ] ;
+  hydra:supportedOperation
+    [
+      a hydra:SupportedOperation, schema:CreateAction ;
+      hydra:method "POST" ;
+      hydra:title "Add term" ;
+      hydra:expects </api/univoca/DimensionTerm> ;
+      code:implementedBy
+        [
+          a code:EcmaScript ;
+          code:link <node:@hydrofoil/knossos/collection#CreateMember> ;
+        ] ;
+    ] ;
+.

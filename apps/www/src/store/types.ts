@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { VuexOidcState } from 'vuex-oidc'
 import { NamedNode, Term } from 'rdf-js'
 import { AppState } from './modules/app'
@@ -8,6 +9,7 @@ import { HierarchiesState } from './modules/hierarchies'
 import { DimensionsState } from './modules/dimensions'
 import { DimensionState } from './modules/dimension'
 import { RdfResourceCore } from '@tpluscode/rdfine/RdfResource'
+import { Collection } from 'alcaeus'
 
 export interface RootState {
   app: AppState
@@ -42,7 +44,7 @@ export interface Hierarchy extends Resource {
   nextInHierarchy: NextInHierarchy
 }
 
-export interface Dimension extends Resource {
+export interface Dimension extends Collection<DimensionTerm> {
   name?: string
   terms?: Term
   validThrough?: Date

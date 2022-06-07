@@ -6,16 +6,8 @@ prefix univoca: <https://described.at/univoca/>
 
 <>
   a sh:NodeShape ;
-  sh:targetClass univoca:Dimension ;
+  sh:targetClass univoca:ManagedDimension ;
   sh:property
-    [
-      sh:name "Name" ;
-      sh:path schema:name ;
-      sh:minCount 1 ;
-      sh:maxCount 1 ;
-      sh:datatype xsd:string ;
-      sh:group _:defaultGroup ;
-    ],
     [
       sh:path univoca:dimension ;
       sh:name "dimension" ;

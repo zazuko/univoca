@@ -13,11 +13,12 @@ import { APIError } from './errors'
 import { apiResourceMixin } from './mixins/ApiResource'
 import HierarchyMixin from './mixins/Hierarchy'
 import DimensionMixin from './mixins/Dimension'
+import DimensionTermMixin from './mixins/DimensionTerm'
 import OperationMixin from './mixins/Operation'
 import { findNodes } from 'clownface-shacl-path'
 import { FileLiteral } from '@/forms/FileLiteral'
 import { GraphPointer } from 'clownface'
-import { Term } from 'rdf-js'
+import { NamedNode, Term } from 'rdf-js'
 
 const rootURL = window.APP_CONFIG.apiBase
 const segmentSeparator = '!!' // used to replace slash in URI to prevent escaping
@@ -33,6 +34,7 @@ Hydra.resources.factory.addMixin(apiResourceMixin(rootURL, segmentSeparator))
 Hydra.resources.factory.addMixin(HierarchyMixin)
 Hydra.resources.factory.addMixin(OperationMixin)
 Hydra.resources.factory.addMixin(DimensionMixin)
+Hydra.resources.factory.addMixin(DimensionTermMixin)
 Hydra.resources.factory.addMixin(...ShapeBundle)
 Hydra.resources.factory.addMixin(ThingMixin)
 Hydra.resources.factory.addMixin(ValidationReportMixin)
@@ -49,7 +51,9 @@ Hydra.cacheStrategy.shouldLoad = (previous) => {
 const pendingRequests = new Map<string, Promise<HydraResponse<any, any>>>()
 
 export const api = {
-  async fetchResource <T extends RdfResourceCore = RdfResource> (url: string): Promise<T> {
+  async fetchResource <T extends RdfResourceCore = RdfResource> (id: string | NamedNode): Promise<T> {
+    const url = typeof id === 'string' ? id : id.value
+
     let request = pendingRequests.get(url)
     if (!request) {
       request = Hydra.loadResource<T>(url.split(segmentSeparator).join('/'))

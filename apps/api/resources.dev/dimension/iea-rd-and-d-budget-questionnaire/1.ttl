@@ -2,8 +2,15 @@
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
 @prefix univoca: <https://described.at/univoca/> .
 
-<> a hydra:Resource, schema:DefinedTerm, univoca:DimensionTerm ;
-	schema:name "1 ENERGY EFFICIENCY"@en ;
-	schema:identifier "1" ;
-	schema:inDefinedTermSet <../iea-rd-and-d-budget-questionnaire> .
+<>
+  a univoca:ExternalDimensionTerm ;
+  univoca:term <https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire/1> ;
+  schema:isPartOf </dimension/iea-rd-and-d-budget-questionnaire> ;
+.
 
+<https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire/1>
+  a hydra:Resource, schema:DefinedTerm ;
+  schema:name "1 ENERGY EFFICIENCY"@en ;
+  schema:identifier "1" ;
+  schema:inDefinedTermSet <https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire> ;
+.

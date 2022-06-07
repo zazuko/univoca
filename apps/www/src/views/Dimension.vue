@@ -9,8 +9,16 @@
           <shared-dimension-tags :dimension="dimension" />
         </div>
         <div class="is-flex is-align-items-center gap-1">
-          <hydra-operation-button :operation="dimension.actions.replace" :to="{ name: 'SharedDimensionEdit' }" />
-          <hydra-operation-button :operation="dimension.actions.delete" @click="deleteDimension(dimension)" />
+          <hydra-operation-button
+            v-if="dimension.actions?.replace"
+            :operation="dimension.actions.replace"
+            :to="{ name: 'SharedDimensionEdit' }"
+          />
+          <hydra-operation-button
+            v-if="dimension.actions?.delete"
+            :operation="dimension.actions.delete"
+            @click="deleteDimension(dimension)"
+          />
           <download-button :resource="dimension.export" size="small" variant="white" />
         </div>
       </div>
@@ -25,7 +33,7 @@
             </th>
             <td class="has-text-right">
               <hydra-operation-button
-                v-if="dimension.actions.create"
+                v-if="dimension.actions?.create"
                 :operation="dimension.actions.create"
                 :to="{ name: 'SharedDimensionTermCreate' }"
                 variant="default"
@@ -65,12 +73,12 @@
           </tr>
           <tr v-else v-for="term in terms.data" :key="term.clientPath" :class="{ 'has-background-success-light': term.newlyCreated }">
             <td>
-              <p v-for="(name, index) in term.name" :key="index">
+              <p v-for="(name, index) in term.term.name" :key="index">
                 <term-display :key="name.value" :term="name" :show-language="true" />
               </p>
             </td>
             <td>
-              <p v-for="(identifier, index) in term.identifiers" :key="index">
+              <p v-for="(identifier, index) in term.term.identifiers" :key="index">
                 {{ identifier }}
               </p>
             </td>
@@ -82,10 +90,10 @@
                   </span>
                 </div>
                 <div>
-                  <external-term-link :term="term" />
+                  <external-term-link :term="term.term" />
                   <hydra-operation-button
                     :operation="term.actions.replace"
-                    :to="{ name: 'SharedDimensionTermEdit', params: { termId: term.clientPath } }"
+                    :to="{ name: 'DimensionTermEdit', params: { termId: term.clientPath } }"
                   />
                   <hydra-operation-button :operation="term.actions.delete" @click="deleteTerm(term)" />
                 </div>
@@ -103,14 +111,14 @@
                     <o-button
                       icon-left="chevron-left"
                       @click="prevPage"
-                      :disabled="!terms.data || page === 1"
+                      :disabled="!pager.previous"
                     />
                   </o-tooltip>
                   <o-tooltip label="Next page">
                     <o-button
                       icon-left="chevron-right"
                       @click="nextPage"
-                      :disabled="!terms.data || terms.data.length === 0"
+                      :disabled="!pager.next"
                     />
                   </o-tooltip>
                 </div>
@@ -181,6 +189,7 @@ export default defineComponent({
       dimension: 'dimension',
       terms: 'terms',
       page: 'page',
+      pager: 'pager',
       pageSize: 'pageSize',
     }),
   },

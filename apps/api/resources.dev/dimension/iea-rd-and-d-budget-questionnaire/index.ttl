@@ -10,9 +10,16 @@ prefix meta: <https://cube.link/meta/>
 prefix univoca: <https://described.at/univoca/>
 
 <>
-  a univoca:ExternalDimension, univoca:Dimension ;
+  a univoca:ExternalDimension ;
   schema:name "IEA Dimension" ;
   univoca:dimension <https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire> ;
+# TODO: initialize when importing dimension
+  hydra:search </api/Dimension#search> ;
+  hydra:memberAssertion
+    [
+      hydra:property schema:isPartOf ;
+      hydra:object <> ;
+    ] ;
 .
 
 <https://ld.admin.ch/cube/dimension/iea-rd-and-d-budget-questionnaire>

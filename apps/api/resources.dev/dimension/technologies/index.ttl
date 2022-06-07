@@ -12,7 +12,7 @@ prefix language: <http://lexvo.org/id/iso639-1/>
 prefix knossos: <https://hypermedia.app/knossos#>
 
 <>
-  a univoca:Dimension ;
+  a univoca:ManagedDimension ;
   schema:name "Technologies" ;
   univoca:dimension <https://example.com/dimension/technologies> ;
   univoca:termShape
@@ -43,7 +43,7 @@ prefix knossos: <https://hypermedia.app/knossos#>
           univoca:dynamicPropertyType "Shared Term" ;
         ]
     ] ;
-  # TODO: initialize when creating dimension
+  hydra:search </api/Dimension#search> ;
   hydra:memberAssertion
     [
       hydra:property schema:isPartOf ;
