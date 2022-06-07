@@ -15,8 +15,10 @@ prefix iso6391: <http://lexvo.org/id/iso639-1/>
     [
       sh:name "Term Property" ;
       sh:path sh:property ;
+      sh:nodeKind sh:BlankNode ;
       sh:node
         [
+          sh1:xoneDiscriminator univoca:dynamicPropertyType ;
           sh:property
             [
               sh:name "Name" ;
@@ -111,7 +113,7 @@ prefix iso6391: <http://lexvo.org/id/iso639-1/>
                   [
                     sh:name "Languages" ;
                     sh:path univoca:languageIn ;
-                    dash:editor sh1:CheckboxListEditor ; # TODO editor ns?
+                    dash:editor univoca:CheckboxListEditor ;
                     sh:in
                       (
                       # TODO languages to a collection
