@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@hydrofoil/knossos": "^0.6.1",
+    "@hydrofoil/knossos": "^0.7.0",
     "@hydrofoil/vocabularies": "^0.3.1",
     "@rdfine/hydra": "^0.8.3",
     "@rdfine/shacl": "^0.8.6",

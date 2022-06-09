@@ -1,0 +1,31 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+prefix query: <https://hypermedia.app/query#>
+prefix code: <https://code.described.at/>
+
+<>
+  a hydra:Collection ;
+  hydra:memberAssertion
+    [
+      hydra:property rdf:type ;
+      hydra:object sh:NodeShape ;
+    ] ;
+  hydra:limit 1 ;
+  hydra:search
+    [
+      hydra:template "{?targetClass}" ;
+      hydra:variableRepresentation hydra:ExplicitRepresentation ;
+      hydra:mapping
+        [
+          hydra:variable "targetClass" ;
+          hydra:required true ;
+          hydra:property sh:targetClass ;
+          query:filter
+            [
+              a code:EcmaScriptModule ;
+              code:link <file:apps/api/lib/shapes.js#filterByTargetClass> ;
+            ] ;
+        ] ;
+    ] ;
+.

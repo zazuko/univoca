@@ -11,7 +11,7 @@ import NotAuthorized from '@/views/NotAuthorized.vue'
 import Dimensions from '@/views/Dimensions.vue'
 import Dimension from '@/views/Dimension.vue'
 import DimensionCreate from '@/views/DimensionCreate.vue'
-import SharedDimensionTermCreate from '@/views/SharedDimensionTermCreate.vue'
+import DimensionTermCreate from '@/views/DimensionTermCreate.vue'
 import SharedDimensionTermEdit from '@/views/SharedDimensionTermEdit.vue'
 import DimensionEdit from '@/views/DimensionEdit.vue'
 import Hierarchies from '@/views/Hierarchies.vue'
@@ -50,8 +50,8 @@ const routes: Array<RouteRecordRaw> = [
           },
           {
             path: 'terms/new',
-            name: 'SharedDimensionTermCreate',
-            component: SharedDimensionTermCreate,
+            name: 'DimensionTermCreate',
+            component: DimensionTermCreate,
           },
           {
             path: 'terms/:termId/edit',

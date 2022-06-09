@@ -1,5 +1,5 @@
 import { Hydra } from 'alcaeus/web'
-import { HydraResponse, RdfResource, RuntimeOperation } from 'alcaeus'
+import { Collection, HydraResponse, RdfResource, RuntimeOperation } from 'alcaeus'
 import { ResponseWrapper } from 'alcaeus/ResponseWrapper'
 import RdfResourceImpl, { RdfResourceCore, ResourceIdentifier } from '@tpluscode/rdfine/RdfResource'
 import { hydra, sh } from '@tpluscode/rdf-ns-builders'
@@ -17,8 +17,9 @@ import DimensionTermMixin from './mixins/DimensionTerm'
 import OperationMixin from './mixins/Operation'
 import { findNodes } from 'clownface-shacl-path'
 import { FileLiteral } from '@/forms/FileLiteral'
-import { GraphPointer } from 'clownface'
+import clownface, { GraphPointer } from 'clownface'
 import { NamedNode, Term } from 'rdf-js'
+import $rdf from 'rdf-ext'
 
 const rootURL = window.APP_CONFIG.apiBase
 const segmentSeparator = '!!' // used to replace slash in URI to prevent escaping
@@ -50,6 +51,11 @@ Hydra.cacheStrategy.shouldLoad = (previous) => {
 
 const pendingRequests = new Map<string, Promise<HydraResponse<any, any>>>()
 
+export interface FetchShapeParams {
+  shapesCollection?: Collection<NodeShape>
+  targetClass?: Term
+}
+
 export const api = {
   async fetchResource <T extends RdfResourceCore = RdfResource> (id: string | NamedNode): Promise<T> {
     const url = typeof id === 'string' ? id : id.value
@@ -75,12 +81,26 @@ export const api = {
     return resource
   },
 
-  async fetchOperationShape (operation: RuntimeOperation, { targetClass }: { targetClass?: Term } = {}): Promise<Shape | null> {
+  async fetchOperationShape (operation: RuntimeOperation, { targetClass, shapesCollection }: FetchShapeParams = {}): Promise<Shape | null> {
     const expects: RdfResource | undefined = operation.expects.find(expects => 'load' in expects)
 
     const headers: HeadersInit = {}
-    if (targetClass) {
-      headers.Prefer = `target-class=${targetClass.value}`
+    if (targetClass && shapesCollection) {
+      const params = clownface({ dataset: $rdf.dataset() })
+        .blankNode()
+        .addOut(sh.targetClass, targetClass)
+      const searchUrl = shapesCollection.search?.expand(params)
+
+      if (searchUrl) {
+        const shapes = await api.fetchResource<Collection>(searchUrl)
+        const shapeId = shapes?.member?.shift()?.id.value
+        if (shapeId) {
+          const shape = await api.fetchResource(shapeId)
+          if (isShape(shape)) {
+            return shape
+          }
+        }
+      }
     }
 
     if (expects && expects.load) {
@@ -90,7 +110,7 @@ export const api = {
       }
     }
 
-    console.warn('No hydra:expects found for operation or dit not dereference a sh:NodeShape')
+    console.warn('No hydra:expects found for operation or did not dereference a sh:NodeShape')
     return null
   },
 

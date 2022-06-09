@@ -48,6 +48,14 @@ prefix knossos: <https://hypermedia.app/knossos#>
     [
       hydra:property schema:isPartOf ;
       hydra:object <> ;
+    ],
+    [
+      hydra:property rdf:type ;
+      hydra:object </term-type/technologies> ;
+    ],
+    [
+      hydra:property rdf:type ;
+      hydra:object univoca:DimensionTerm ;
     ] ;
   knossos:memberTemplate
     [

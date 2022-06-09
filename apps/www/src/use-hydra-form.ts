@@ -1,12 +1,12 @@
-import type { Shape } from '@rdfine/shacl'
+import type { NodeShape, Shape } from '@rdfine/shacl'
 import * as $rdf from '@rdf-esm/dataset'
-import type { RdfResource, ResourceIdentifier, RuntimeOperation } from 'alcaeus'
+import type { Collection, RdfResource, ResourceIdentifier, RuntimeOperation } from 'alcaeus'
 import clownface, { GraphPointer } from 'clownface'
 import { computed, ref, Ref, shallowRef, ShallowRef, watch } from 'vue'
 import { Term } from 'rdf-js'
 import { sh1 } from './namespace'
 import { sh } from '@tpluscode/rdf-ns-builders/strict'
-import { api } from './api'
+import { api, FetchShapeParams } from './api'
 import { APIErrorValidation, ErrorDetails } from './api/errors'
 
 const initResource = () => clownface({ dataset: $rdf.dataset() }).namedNode('')
@@ -14,7 +14,7 @@ const initResource = () => clownface({ dataset: $rdf.dataset() }).namedNode('')
 interface HydraFormOptions {
   beforeSubmit?: () => Promise<boolean> | boolean
   afterSubmit?: (savedResource: RdfResource | null | undefined) => any
-  fetchShapeParams?: { targetClass?: Term }
+  fetchShapeParams?: FetchShapeParams
   saveHeaders?: HeadersInit
 }
 

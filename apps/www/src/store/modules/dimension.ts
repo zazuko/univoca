@@ -41,6 +41,12 @@ const actions: ActionTree<DimensionState, RootState> = {
     return dimension
   },
 
+  refresh (context) {
+    if (context.state.dimension) {
+      context.dispatch('fetch', context.state.dimension.id)
+    }
+  },
+
   nextPage (context) {
     const { pager } = context.state
     if (pager?.next) {
@@ -64,18 +70,6 @@ const actions: ActionTree<DimensionState, RootState> = {
     if (pageId) {
       context.dispatch('fetch', pageId)
     }
-  },
-
-  addTerm (context, term) {
-    context.commit('storeNewTerm', term)
-  },
-
-  updateTerm (context, term) {
-    context.commit('storeExistingTerm', term)
-  },
-
-  removeTerm (context, term) {
-    context.commit('removeTerm', term)
   },
 
   reset (context) {

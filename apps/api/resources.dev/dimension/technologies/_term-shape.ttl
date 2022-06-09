@@ -10,9 +10,15 @@ prefix univoca: <https://described.at/univoca/>
 <>
   a sh:NodeShape ;
   sh:targetClass </term-type/technologies> ;
+  sh:and ( </api/univoca/DimensionTerm> ) ;
   sh:property
     [
+      sh:name "Term properties" ;
       sh:path univoca:term ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:nodeKind sh:BlankNode ;
+      sh:order 10 ;
       sh:node
         [
           sh:and ( </api/meta/SharedDimensionTerm> ) ;
@@ -22,20 +28,25 @@ prefix univoca: <https://described.at/univoca/>
               sh:name "Help text" ;
               sh:path rdfs:comment ;
               sh:languageIn ( "de" "fr" "en" ) ;
+              sh:order 100 ;
+              sh:group </shape-group/term-properties> ;
             ],
             [
               sh:datatype xsd:integer ;
               sh:path qb:order ;
               sh:name "Order" ;
               sh:maxCount 1 ;
+              sh:order 110 ;
+              sh:group </shape-group/term-properties> ;
             ],
             [
               sh:class <http://example.com/dimension/colors> ;
               sh:path schema:color ;
               sh:name "Color" ;
               sh:maxCount 1 ;
+              sh:order 110 ;
+              sh:group </shape-group/term-properties> ;
             ]
         ]
     ] ;
-
 .

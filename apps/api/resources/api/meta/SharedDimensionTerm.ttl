@@ -27,7 +27,7 @@ PREFIX meta: <https://cube.link/meta/>
     sh:group _:defaultGroup ;
   ],
   [
-    sh:name "name" ;
+    sh:name "Name" ;
     sh:path schema:name ;
     sh:languageIn ("de" "fr" "it" "rm" "en") ;
     sh:uniqueLang true ;
@@ -63,5 +63,6 @@ PREFIX meta: <https://cube.link/meta/>
 .
 
 _:defaultGroup
-  rdfs:label "Term" ;
+  rdfs:label "Core" ;
+  sh:order 0 ;
 .

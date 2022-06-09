@@ -1,3 +1,4 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX schema: <http://schema.org/>
@@ -84,8 +85,10 @@ univoca:TermSetCollection
       hex:multiPartPath </api#export> ;
     ] ;
 .
+
 sh:NodeShape
   a hydra:Class ;
+  rdfs:subClassOf hydra:Resource ;
   hydra:apiDocumentation <> ;
   query:include
     [
@@ -108,5 +111,13 @@ sh:NodeShape
               )
           ]
           [ sh:zeroOrOnePath ( sh:property [ sh:alternativePath ( sh:group sh:node ) ] ) ]
+        ),
+        (
+        # (sh:property/sh:node)/(sh:and|sh:xone|sh:or)/rdf:rest*/rdf:first
+          sh:property
+          sh:node
+          [ sh:alternativePath ( sh:and sh:xone sh:or ) ]
+          [ sh:zeroOrMorePath rdf:rest ]
+          rdf:first
         )
     ] .

@@ -20,7 +20,7 @@
   "author": "Zazuko GmbH <no-reply@zazuko.com>",
   "repository": "https://github.com/zazuko/univoca",
   "dependencies": {
-    "@hydrofoil/knossos": "^0.6.1",
+    "@hydrofoil/knossos": "^0.7.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "express-conditional-middleware": "^2.1.1",
@@ -28,7 +28,7 @@
     "path-to-regexp": "^6.2.0"
   },
   "devDependencies": {
-    "@hydrofoil/talos": "^0.4.4",
+    "@hydrofoil/talos": "^0.4.10",
     "@open-wc/eslint-config": "^7.0.0",
     "@tpluscode/eslint-config": "^0.3.0",
     "@types/sparql-http-client": "^2.2.7",

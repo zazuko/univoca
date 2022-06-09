@@ -35,7 +35,7 @@
               <hydra-operation-button
                 v-if="dimension.actions?.create"
                 :operation="dimension.actions.create"
-                :to="{ name: 'SharedDimensionTermCreate' }"
+                :to="{ name: 'DimensionTermCreate' }"
                 variant="default"
                 :label="dimension.actions.create.title"
               />
@@ -60,7 +60,7 @@
               Nothing in this dimension yet.
               <span v-if="dimension.actions.create">
                 Do you want to
-                <router-link :to="{ name: 'SharedDimensionTermCreate' }">
+                <router-link :to="{ name: 'DimensionTermCreate' }">
                   add a term
                 </router-link>?
               </span>
@@ -73,12 +73,12 @@
           </tr>
           <tr v-else v-for="term in terms.data" :key="term.clientPath" :class="{ 'has-background-success-light': term.newlyCreated }">
             <td>
-              <p v-for="(name, index) in term.term.name" :key="index">
+              <p v-for="(name, index) in term.term?.name" :key="index">
                 <term-display :key="name.value" :term="name" :show-language="true" />
               </p>
             </td>
             <td>
-              <p v-for="(identifier, index) in term.term.identifiers" :key="index">
+              <p v-for="(identifier, index) in term.term?.identifiers" :key="index">
                 {{ identifier }}
               </p>
             </td>

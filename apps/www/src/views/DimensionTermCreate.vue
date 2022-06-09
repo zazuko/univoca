@@ -24,9 +24,11 @@ import HydraOperationForm from '@/components/HydraOperationForm.vue'
 import { RootState } from '@/store/types'
 import { useHydraForm } from '@/use-hydra-form'
 import { displayToast } from '@/use-toast'
+import { univoca } from '@univoca/core/ns.js'
+import { sh } from '@tpluscode/rdf-ns-builders/strict'
 
 export default defineComponent({
-  name: 'SHaredDimensionTermCreateView',
+  name: 'DimensionTermCreateView',
   components: { SidePane, HydraOperationForm },
 
   setup () {
@@ -39,11 +41,13 @@ export default defineComponent({
     const operation = computed(() => dimension.actions.create)
 
     const form = useHydraForm(operation, {
-      fetchShapeParams: { targetClass: dimension.id },
-      saveHeaders: { Prefer: `target-class=${dimension.id.value}` },
+      fetchShapeParams: {
+        shapesCollection: store.state.api.shapesCollection,
+        targetClass: dimension.get(univoca.termShape).get(sh.targetClass).id
+      },
 
       afterSubmit (term: any) {
-        store.dispatch('sharedDimension/addTerm', term)
+        store.dispatch('dimension/refresh', term)
 
         displayToast({
           message: 'Shared dimension term successfully created',

@@ -2,13 +2,13 @@ import { dcterms, rdf, schema, sh } from '@tpluscode/rdf-ns-builders'
 import httpError from 'http-errors'
 import { univoca, meta } from '@univoca/core/ns.js'
 import { isBlankNode } from 'is-graph-pointer'
-import $rdf from 'rdf-ext'
 import { hydra } from '@tpluscode/rdf-ns-builders/strict'
 import { knossos } from '@hydrofoil/vocabularies/builders/strict'
 import { fromPointer as hydraTemplate } from '@rdfine/hydra/lib/IriTemplate'
 import { fromPointer as hydraTemplateMapping } from '@rdfine/hydra/lib/IriTemplateMapping'
 import { fromPointer as memberAssertion } from '@rdfine/hydra/lib/MemberAssertion'
 import * as CONST from './rdf.js'
+import { rename } from './rdf.js'
 
 export function injectTermsLink(req, pointer) {
   pointer.any().has(rdf.type, schema.DefinedTermSet).forEach((termSet) => {
@@ -19,6 +19,8 @@ export function injectTermsLink(req, pointer) {
 }
 
 const createdDimensionTypes = [univoca.NewDimension, univoca.ImportedDimension]
+
+const termTypeClass = (req, identifier) => req.rdf.namedNode(`/term-type/${identifier}`)
 
 export function prepareCreated(req, pointer) {
   // TODO https://github.com/hypermedia-app/creta/issues/388
@@ -35,6 +37,18 @@ export function prepareCreated(req, pointer) {
       memberAssertion(ma, {
         property: schema.isPartOf,
         object: pointer,
+      })
+    })
+    .addOut(hydra.memberAssertion, (ma) => {
+      memberAssertion(ma, {
+        property: rdf.type,
+        object: termTypeClass(req, identifier),
+      })
+    })
+    .addOut(hydra.memberAssertion, (ma) => {
+      memberAssertion(ma, {
+        property: rdf.type,
+        object: univoca.DimensionTerm,
       })
     })
     .addOut(knossos.memberTemplate, (template) => {
@@ -57,7 +71,7 @@ export function prepareCreated(req, pointer) {
     termShape = pointer.blankNode().addIn(univoca.termShape, pointer)
   }
   termShape
-    .addOut(sh.targetClass, req.rdf.namedNode(`/term-type/${identifier}`))
+    .addOut(sh.targetClass, termTypeClass(req, identifier))
     .addOut(sh.deactivated, true)
 
   const dimension = pointer.out(univoca.dimension)
@@ -65,16 +79,7 @@ export function prepareCreated(req, pointer) {
     // TODO: change hardcoded URI
     const dimensionIri = dimension.namedNode(`https://ld.admin.ch/cube/dimension/${identifier}`).term
 
-    for (const quad of dimension.dataset) {
-      if (quad.subject.equals(dimension.term)) {
-        dimension.dataset.delete(quad)
-        dimension.dataset.add($rdf.quad(dimensionIri, quad.predicate, quad.object, quad.graph))
-      }
-      if (quad.object.equals(dimension.term)) {
-        dimension.dataset.delete(quad)
-        dimension.dataset.add($rdf.quad(quad.subject, quad.predicate, dimensionIri, quad.graph))
-      }
-    }
+    rename(dimension, dimension.term, dimensionIri)
   }
 }
 

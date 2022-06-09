@@ -1,27 +1,18 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 prefix univoca: <https://described.at/univoca/>
 
 <>
   a sh:NodeShape ;
-  sh:targetClass univoca:DimensionTerm ;
   sh:property
     [
       sh:name "Identifier" ;
       sh:description "A lowercase, alphanumeric value which identifies a shared dimension term" ;
       sh:path dcterms:identifier ;
       sh:order 0 ;
-      sh:group _:defaultGroup ;
       sh:pattern "^[a-z0-9-]+$" ;
       sh:minCount 1 ;
       sh:maxCount 1 ;
-    ],
-    [
-      sh:path univoca:term ;
-      sh:name "Term" ;
-      sh:minCount 1 ;
-      sh:maxCount 1 ;
-      sh:nodeKind sh:BlankNodeOrIRI ;
-      sh:node </api/meta/SharedDimensionTerm> ;
     ] ;
 .

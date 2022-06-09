@@ -30,7 +30,6 @@ univoca:ManagedDimension
       a hydra:SupportedOperation, schema:CreateAction ;
       hydra:method "POST" ;
       hydra:title "Add term" ;
-      hydra:expects </api/univoca/DimensionTerm> ;
       code:implementedBy
         [
           a code:EcmaScript ;

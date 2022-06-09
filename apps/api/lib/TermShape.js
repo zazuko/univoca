@@ -12,8 +12,9 @@ export async function generate({ req, event }) {
   const termShape = clownface({ dataset: $rdf.dataset() })
     .namedNode(`${dimension.value}/_term-shape`)
 
+  const group = req.rdf.namedNode('/shape-group/term-properties')
   const properties = dimension.out(univoca.termShape).out(sh.property)
-    .map((property) => {
+    .map((property, index) => {
       let minCount
       let maxCount
       if (TRUE.equals(property.out(univoca.required).term)) {
@@ -31,13 +32,21 @@ export async function generate({ req, event }) {
         languageIn: property.out(univoca.languageIn).map(toIsoCode),
         minCount,
         maxCount,
+        order: 100 + index,
+        group,
       })
     })
 
   nodeShape(termShape, {
     targetClass: dimension.out(univoca.termShape).out(sh.targetClass),
+    and: [req.rdf.namedNode('/api/univoca/DimensionTerm')],
     property: propertyShape({
       path: univoca.term,
+      name: 'Term properties',
+      minCount: 1,
+      maxCount: 1,
+      nodeKind: sh.BlankNode,
+      order: 10,
       node: nodeShape({
         and: [
           req.rdf.namedNode('/api/meta/SharedDimensionTerm'),

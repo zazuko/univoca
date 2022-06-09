@@ -1,11 +1,14 @@
-import { RdfResource } from 'alcaeus'
+import { Collection, Resource } from 'alcaeus'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { api } from '@/api'
 import { RootState } from '../types'
 import { dcat } from '@tpluscode/rdf-ns-builders'
+import { NodeShape } from '@rdfine/shacl'
+import { rdf, sh } from '@tpluscode/rdf-ns-builders/strict'
 
 export interface APIState {
-  entrypoint: null | RdfResource
+  entrypoint: null | Resource
+  shapesCollection?: Collection<NodeShape>
 }
 
 const initialState = {
@@ -54,8 +57,13 @@ const actions: ActionTree<APIState, RootState> = {
 }
 
 const mutations: MutationTree<APIState> = {
-  storeEntrypoint (state, entrypoint) {
+  storeEntrypoint (state, entrypoint: Resource) {
     state.entrypoint = Object.freeze(entrypoint)
+
+    state.shapesCollection = entrypoint.getCollections({
+      object: sh.NodeShape,
+      predicate: rdf.type
+    }).shift() as any
   }
 }
 

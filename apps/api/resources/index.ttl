@@ -4,5 +4,5 @@ prefix univoca: <https://described.at/univoca/>
 
 </>
   a hydra:Resource, </api/Entrypoint> ;
-  hydra:collection </dimensions>, </hierarchies> ;
+  hydra:collection </dimensions>, </hierarchies>, </api/shapes> ;
 .

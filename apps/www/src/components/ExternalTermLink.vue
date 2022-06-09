@@ -22,6 +22,10 @@ export default defineComponent({
 
   computed: {
     uri (): string {
+      if (!this.term) {
+        return ''
+      }
+
       if ('termType' in this.term) {
         return this.term.value
       }
