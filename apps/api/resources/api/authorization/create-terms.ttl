@@ -6,6 +6,5 @@ prefix univoca: <https://described.at/univoca/>
   a acl:Authorization ;
   acl:mode acl:Write ;
   acl:accessToClass univoca:Dimension ;
-  # TODO limit who can create terms
-  acl:agentClass foaf:Agent ;
+  acl:agentClass acl:AuthenticatedAgent ;
 .

@@ -5,5 +5,5 @@ PREFIX acl: <http://www.w3.org/ns/auth/acl#>
   a acl:Authorization ;
   acl:mode acl:Write ;
   acl:accessTo </hierarchies> ;
-  acl:agentClass foaf:Agent ; # TODO: restrict access
+  acl:agentClass acl:AuthenticatedAgent ;
 .
