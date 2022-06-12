@@ -12,7 +12,7 @@
           <hydra-operation-button
             v-if="dimension.actions?.replace"
             :operation="dimension.actions.replace"
-            :to="{ name: 'SharedDimensionEdit' }"
+            :to="{ name: 'DimensionEdit' }"
           />
           <hydra-operation-button
             v-if="dimension.actions?.delete"

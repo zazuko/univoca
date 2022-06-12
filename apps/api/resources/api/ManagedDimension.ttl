@@ -35,5 +35,16 @@ univoca:ManagedDimension
           a code:EcmaScript ;
           code:link <node:@hydrofoil/knossos/collection#CreateMember> ;
         ] ;
+    ],
+    [
+      a hydra:SupportedOperation, schema:ReplaceAction ;
+      hydra:method "PUT" ;
+      hydra:title "Update" ;
+      hydra:expects </api/univoca/ManagedDimension> ;
+      code:implementedBy
+        [
+          a code:EcmaScript ;
+          code:link <node:@hydrofoil/knossos/resource#PUT> ;
+        ] ;
     ] ;
 .

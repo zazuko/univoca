@@ -1,3 +1,4 @@
+PREFIX dash: <http://datashapes.org/dash#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
@@ -9,22 +10,31 @@ prefix univoca: <https://described.at/univoca/>
   sh:targetClass univoca:ManagedDimension ;
   sh:property
     [
+      sh:name "Local name" ;
+      sh:path schema:name ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:string ;
+      sh:group _:univocaGroup ;
+    ],
+    [
       sh:path univoca:dimension ;
       sh:name "dimension" ;
       sh:node </api/meta/SharedDimension> ;
       sh:nodeKind sh:IRI ;
+      dash:editor dash:DetailsEditor ;
       sh:group _:defaultGroup ;
     ],
     [
       sh:name 'Term properties' ;
       sh:description 'Additional properties for Shared Terms' ;
       sh:path univoca:termShape ;
-      sh:order 40 ;
       sh:nodeKind sh:BlankNode ;
       sh:group _:propertyGroup ;
       sh:node </api/univoca/TermProperties> ;
     ] ;
 .
 
-_:defaultGroup rdfs:label "Dimension" .
-_:propertyGroup rdfs:label "Term properties" .
+_:defaultGroup rdfs:label "Dimension" ; sh:order 1 .
+_:propertyGroup rdfs:label "Term properties" ; sh:order 2 .
+_:univocaGroup rdfs:label "Settings" ; sh:order 3 .
